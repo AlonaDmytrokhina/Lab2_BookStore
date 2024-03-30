@@ -33,25 +33,15 @@ public class Book {
         return cost;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) {this.name = name;}
 
-    public void setInfo(String info) {
-        this.info = info;
-    }
+    public void setInfo(String info) {this.info = info;}
 
-    public void setProducer(String producer) {
-        this.producer = producer;
-    }
+    public void setProducer(String producer) {this.producer = producer;}
 
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
+    public void setAmount(int amount) {this.amount = amount;}
 
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
+    public void setCost(double cost) {this.cost = cost;}
 
     public double getOverallCost(){return this.amount*this.cost;}
 }
