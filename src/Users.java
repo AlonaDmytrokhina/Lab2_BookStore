@@ -1,7 +1,5 @@
 import javax.swing.*;
 
-
-
 public class Users extends JFrame {
 
     private JLabel loginLabel, passwordLabel;
