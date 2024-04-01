@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class Users extends JFrame {
 
@@ -6,6 +7,7 @@ public class Users extends JFrame {
     private JTextField loginField;
     private JPasswordField passwordField;
     private JButton loginButton;
+    private JPanel backgroundPanel;
 
     public Users() {
         setTitle("Вхід "); //назва вікна
@@ -13,6 +15,17 @@ public class Users extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);// закриття вікна
         setLocationRelativeTo(null); // розмістити по центру екрана
         setLayout(null);
+        backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon imageIcon = new ImageIcon("books2.jpeg"); // встановлюємо фонове зображення
+                Image image = imageIcon.getImage();
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this); // масштабуємо зображення на весь розмір панелі
+            }
+        };
+        setContentPane(backgroundPanel); // встановлюємо панель як контейнер для вмісту вікна
+        backgroundPanel.setLayout(null);
 
         loginLabel = new JLabel("Логін:"); // текст про ввід логіну
         loginLabel.setBounds(140, 120, 80, 25); // розмір
@@ -52,8 +65,7 @@ public class Users extends JFrame {
 
     private void openMainWindow() { // відкрити головне вікно
         // Ваш код для відкриття головного вікна
-        JFrame mainFrame = new JFrame("Головне меню");
-        mainFrame.setSize(700, 550);
+        MainMenu mainFrame = new MainMenu();
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setVisible(true);
