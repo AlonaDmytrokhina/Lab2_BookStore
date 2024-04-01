@@ -1,58 +1,45 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Genre {
     private String name;
     private String info;
-    private int nBooks;
-    private Book[] books;
+    ArrayList<Book> books;
 
-    Genre(String name, String info, int nBooks){
+    Genre(String name, String info){
         this.name = name;
         this.info = info;
-        this.nBooks = nBooks;
-        this.books = new Book[nBooks];
+        this.books = new ArrayList<>();
     }
 
     public String getName() {return name;}
 
     public String getInfo() {return info;}
 
-    public int getnBooks() {return nBooks;}
+    public int getNBooks() {return this.books.size();}
 
-    public Book[] getBooks() {return books;}
+    public ArrayList<Book> getBooks() {return books;}
 
     public void setName(String name) {this.name = name;}
 
     public void setInfo(String info) {this.info = info;}
 
-    public void setBooks(Book[] books) {this.books = books;}
+//    public void setBooks(Book[] books) {this.books = books;}
 
     public Book findBook(String name){
-        for(int i=0; i<this.nBooks; i++){
-            if(this.books[i].getName()==name){
-                return books[i];
+        for(int i=0; i<this.books.size(); i++){
+            if(this.books.get(i).getName()==name){
+                return books.get(i);
             }
         }
         return null;
     }
 
     public void addBook(Book book){
-        Book[] copy = Arrays.copyOf(this.books, this.nBooks + 1);
-        copy[copy.length - 1] = book;
-        this.nBooks++;
-        this.books = copy;
+        this.books.add(book);
     }
 
     public void deleteBook(Book book){
-        for (int i=0; i<this.nBooks; i++) {
-            if (books[i].getName() == book.getName()) {
-                Book[] newArray = new Book[this.nBooks - 1];
-                System.arraycopy(this.books, 0, newArray, 0, i);
-                System.arraycopy(this.books, i + 1, newArray, i, newArray.length - i);
-                this.nBooks--;
-                this.books = newArray;
-                break;
-            }
-        }
+        this.books.remove(book);
     }
 }
