@@ -12,7 +12,7 @@ public class MainMenu extends JFrame {
     private JButton addStockButton, removeStockButton, changePrice;
     private JTextField searchField;
     private JButton viewStatisticsButton, searchBook;
-    BooksWarehouse booksWarehouse;
+    BooksWarehouse booksWarehouse = new BooksWarehouse("Book worm");;
 
     public MainMenu() {
         setTitle("Система управління складом");
@@ -111,70 +111,11 @@ public class MainMenu extends JFrame {
     }
 
     private void defaultGenres(){
-        booksWarehouse = new BooksWarehouse("Book worm");
-        String path1 = "Detective.txt";
-        Genre detective = new Genre("Детектив", "ounijo", path1);
+        Detective det = new Detective();
+        det.defaultBooks(booksWarehouse);
 
-        String nameDet1 = "Чорнильне серце";
-        String authorDet1 = "Роберт Галбрейт";
-        String infoDet1 = "Коли до офісу детективів приходить перелякана Еді Ледвелл, благаючи про розмову з Робін Еллакотт, " +
-                "\n\tприватна розслідувачка не знає, що й думати. Еді, співавторку популярного коміксу «Чорнильно-чорне серце», " +
-                "\n\tпереслідує таємнича особа з інтернету, що називає себе Аномія. Еді конче треба дізнатися, хто ця людина. " +
-                "\n\tРобін вирішує, що у такій справі агенція допомогти не може — і більше не згадує про цей випадок, " +
-                "\n\tаж поки за кілька днів не надходить шокуюча новина: Еді викрали, використавши шокер, та вбили на Гайґейтському цвинтарі.";
-        String producerDet1 = "КСД";
-        int amountDet1 = 4;
-        double costDet1 = 220;
-        Book bookDet1 = new Book(nameDet1, authorDet1, infoDet1, producerDet1, amountDet1, costDet1);
-
-        String nameDet2 = "Смерть на Нілі";
-        String authorDet2 = "Агата Крісті";
-        String infoDet2 = "Молодята Саймон і Ліннет Дойли вирушають у весільну подорож на пароплаві \"Карнак\". " +
-                "\n\tЖаклін де Бельфор, давня подруга Ліннет, у якої та відбила коханого, вирішує своєю присутністю " +
-                "\n\tзіпсувати їм медовий місяць. Одного ранку служниця знаходить місіс Дойл мертвою... " +
-                "\n\tХтось вистрелив їй у голову, поки вона спала. На стіні біля вбитої лишається кривава буква \"Ж\". " +
-                "\n\tОднак Жаклін має залізне алібі. У справу втручається відомий харизматичний детектив Еркюль Пуаро. " +
-                "\n\tВиявляється, майже всі пасажири мали мотив для вбивства. Щось приховує чи не кожен із них, а кілька, " +
-                "\n\tяк стає відомо, подорожують зі зброєю. То хто цей холоднокровний убивця, що не зупиняється на одному злочині? ";
-        String producerDet2 = "Жорж";
-        int amountDet2 = 2;
-        double costDet2 = 620;
-        Book bookDet2 = new Book(nameDet2, authorDet2, infoDet2, producerDet2, amountDet2, costDet2);
-
-        detective.addBook(bookDet1);
-        detective.addBook(bookDet2);
-        detective.toFile();
-        booksWarehouse.addGenre(detective);
-
-
-        String path2 = "UkrainianClassics.txt";
-        Genre ukrainianClassics = new Genre("Українська класика", "ounijo", path2);
-
-        String nameUC1 = "Майстер корабля.Байгород";
-        String authorUC1 = "Юрій Яновський";
-        String infoUC1 = "Одеса, у яку прилітали тільки скажені шторми з моря. Українське кіно, свіже і сміливе," +
-                "\n\tяк юнга на високій щоглі. Молоді люди, які шукають себе і знаходять — дружбу, кохання," +
-                "\n\tвірність, мужність. Режисер, художник, балерина, матрос, одеські рибалки," +
-                "\n\tпортові дівчата, директор кінофабрики, власник шхуни.";
-        String producerUC1 = "Віхола";
-        int amountUC1 = 6;
-        double costUC1 = 320;
-        Book bookUC1 = new Book(nameUC1, authorUC1, infoUC1, producerUC1, amountUC1, costUC1);
-
-        String nameUC2 = "Маруся Богуславка";
-        String authorUC2 = "Іван Багряний";
-        String infoUC2 = "Роман «Маруся Богуславка» започаткував епопею «Буйний вітер», задуману" +
-                "\n\tІ. Багряним як трилогія про українську молодь у передвоєнні й воєнні роки, яка," +
-                "\n\tоднак, так і залишилася незавершеною.";
-        String producerUC2 = "Folio";
-        int amountUC2 = 2;
-        double costUC2 = 343;
-        Book bookUC2 = new Book(nameUC2, authorUC2, infoUC2, producerUC2, amountUC2, costUC2);
-
-        ukrainianClassics.addBook(bookUC1);
-        ukrainianClassics.addBook(bookUC2);
-        ukrainianClassics.toFile();
-        booksWarehouse.addGenre(ukrainianClassics);
+        UkrainianClassics ukrC = new UkrainianClassics();
+        ukrC.defaultBooks(booksWarehouse);
     }
 
     private void addButtonGenres(){
