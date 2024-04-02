@@ -1,12 +1,14 @@
 public class Book {
     private String name;
+    private String author;
     private String info;
     private String producer;
     private int amount;
     private double cost;
 
-    Book(String name, String info, String producer, int amount, double cost){
+    Book(String name, String author, String info, String producer, int amount, double cost){
         this.name = name;
+        this.author = author;
         this.info = info;
         this.producer = producer;
         this.amount = amount;
@@ -44,4 +46,16 @@ public class Book {
     public void setCost(double cost) {this.cost = cost;}
 
     public double getOverallCost(){return this.amount*this.cost;}
+
+    public String toString(){
+        String res = "";
+        res+="\nНазва: "+this.name;
+        res+="\nАвтор: "+this.author;
+        res+="\nОпис: "+this.info;
+        res+="\nВидавництво: "+this.producer;
+        res+="\nКількість на складі: "+this.amount;
+        res+="\nЦіна за одиницю товару: "+this.cost;
+        return res;
+    }
+
 }
