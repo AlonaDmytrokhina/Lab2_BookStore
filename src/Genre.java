@@ -47,8 +47,12 @@ public class Genre {
         return null;
     }
 
-    public void addBook(String name, String author, String info, String producer, int amount, double cost){
+    public void addBookData(String name, String author, String info, String producer, int amount, double cost){
         Book book = new Book(name, author, info, producer, amount, cost);
+        this.books.add(book);
+    }
+
+    public void addBook(Book book){
         this.books.add(book);
     }
 

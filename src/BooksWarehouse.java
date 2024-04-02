@@ -19,7 +19,7 @@ public class BooksWarehouse {
     public Genre findGenre(String name){
         for(int i=0; i<this.genres.size(); i++){
             if(this.genres.get(i).getName().equals(name)){
-                return genres.get(i);
+                return this.genres.get(i);
             }
         }
         return null;
@@ -31,6 +31,23 @@ public class BooksWarehouse {
 
     public void deleteGenre(Genre genre){
         this.genres.remove(genre);
+    }
+
+    public Book findBook(String name){
+        for(int i=0; i<this.genres.size(); i++){
+            if(this.genres.get(i).findBook(name)!=null){
+                return this.genres.get(i).findBook(name);
+            }
+        }
+        return  null;
+    }
+
+    public void deleteBook(String name){
+        for(int i=0; i<this.genres.size(); i++){
+            if(this.genres.get(i).findBook(name)!=null){
+                this.genres.get(i).deleteBook(this.genres.get(i).findBook(name));
+            }
+        }
     }
 
 

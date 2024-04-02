@@ -1,6 +1,11 @@
+import java.util.Scanner;
+
 public class Main {
+    static BooksWarehouse booksWarehouse;
     public static void main(String[] args) {
+        booksWarehouse = new BooksWarehouse("Book worm");
         defaultGenres();
+        deleteBook();
     }
 
     private static void defaultGenres(){
@@ -17,6 +22,7 @@ public class Main {
         String producerDet1 = "КСД";
         int amountDet1 = 4;
         double costDet1 = 220;
+        Book book1 = new Book(nameDet1, authorDet1, infoDet1, producerDet1, amountDet1, costDet1);
 
         String nameDet2 = "Смерть на Нілі";
         String authorDet2 = "Агата Крісті";
@@ -30,9 +36,63 @@ public class Main {
         String producerDet2 = "Жорж";
         int amountDet2 = 2;
         double costDet2 = 620;
+        Book book2 = new Book(nameDet2, authorDet2, infoDet2, producerDet2, amountDet2, costDet2);
 
-        detective.addBook(nameDet1, authorDet1, infoDet1, producerDet1, amountDet1, costDet1);
-        detective.addBook(nameDet2, authorDet2, infoDet2, producerDet2, amountDet2, costDet2);
+        detective.addBook(book1);
+        detective.addBook(book2);
         detective.toFile();
+
+        booksWarehouse.addGenre(detective);
+    }
+
+    private static void addBook(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Жанр: ");
+        String genre = scanner.nextLine();
+        while(booksWarehouse.findGenre(genre)==null){
+            System.out.println("Такого жанру не існує.");
+            System.out.print("Жанр: ");
+            genre = scanner.nextLine();
+        }
+        System.out.print("Назва: ");
+        String name = scanner.nextLine();
+        scanner.nextLine();
+        System.out.print("Автор: ");
+        String author = scanner.nextLine();
+        System.out.print("Опис: ");
+        String info = scanner.nextLine();
+        System.out.print("Видавництво: ");
+        String producer = scanner.nextLine();
+        System.out.print("Кількість на складі: ");
+        int amount = scanner.nextInt();
+        System.out.print("Ціна за одиницю товару: ");
+        double cost = scanner.nextDouble();
+        scanner.nextLine();
+
+        Book book = new Book(name, author, info, producer, amount, cost);
+        booksWarehouse.findGenre(genre).addBook(book);
+        booksWarehouse.findGenre(genre).toFile();
+        scanner.close();
+    }
+
+    private static void deleteBook(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Жанр: ");
+        String genre = scanner.nextLine();
+        while(booksWarehouse.findGenre(genre)==null){
+            System.out.println("Такого жанру не існує.");
+            System.out.print("Жанр: ");
+            genre = scanner.nextLine();
+        }
+        System.out.print("Назва: ");
+        String name = scanner.nextLine();
+        while(booksWarehouse.findBook(name) == null){
+            System.out.println("Такої книги не існує.");
+            System.out.print("Назва: ");
+            name = scanner.nextLine();
+        }
+        booksWarehouse.deleteBook(name);
+        booksWarehouse.findGenre(genre).toFile();
+        scanner.close();
     }
 }
