@@ -9,7 +9,7 @@ public class MainMenu extends JFrame {
     private JButton addProductButton, editProductButton, deleteProductButton, viewDescriptionButton; // Додана кнопка для перегляду опису
     private JTextField groupNameField, productNameField;
     private JTextField productManufacturerField, productQuantityField, productPriceField;
-    private JButton addStockButton, removeStockButton;
+    private JButton addStockButton, removeStockButton, changePrice;
     private JTextField searchField;
     private JButton viewStatisticsButton, searchBook;
 
@@ -55,7 +55,7 @@ public class MainMenu extends JFrame {
         productPanel.add(productButtonPanel, BorderLayout.SOUTH);
 
         // Панель Керування
-        controlPanel = new JPanel(new GridLayout(10, 1));
+        controlPanel = new JPanel(new GridLayout(12, 1));
         controlPanel.setBorder(BorderFactory.createTitledBorder("Керування"));
         groupNameField = new JTextField(10);
 
@@ -66,27 +66,35 @@ public class MainMenu extends JFrame {
         searchField = new JTextField(10);
 
         addStockButton = new JButton("Додати товар на склад");
-        removeStockButton = new JButton("Видалити товар зі складу");
+        removeStockButton = new JButton("Cписати товар зі складу");
         viewStatisticsButton = new JButton("Переглянути статистику");
+        changePrice = new JButton("Змінити ціну");
         searchBook = new JButton("Шукати книгу");
 
-        controlPanel.add(new JLabel("Назва групи:"));
+        controlPanel.add(new JLabel("Назва категорії:"));
         controlPanel.add(groupNameField);
 
         controlPanel.add(new JLabel("Назва товару:"));
         controlPanel.add(productNameField);
-        controlPanel.add(new JLabel("Виробник:"));
+        controlPanel.add(new JLabel("Видавництво:"));
         controlPanel.add(productManufacturerField);
         controlPanel.add(new JLabel("Кількість:"));
         controlPanel.add(productQuantityField);
+        controlPanel.add(addStockButton);
+        controlPanel.add(Box.createVerticalStrut(5)); // Вставляємо вертикальну відстань 10 пікселів
+        controlPanel.add(removeStockButton);
+        controlPanel.add(Box.createVerticalStrut(20)); // Вставляємо вертикальну відстань 20 пікселів
         controlPanel.add(new JLabel("Ціна:"));
         controlPanel.add(productPriceField);
-        controlPanel.add(addStockButton);
-        controlPanel.add(removeStockButton);
+        controlPanel.add(Box.createVerticalStrut(30)); // Вставляємо вертикальну відстань 30 пікселів
+        controlPanel.add(changePrice);
         controlPanel.add(new JLabel("Пошук:"));
+
         controlPanel.add(searchField);
-        controlPanel.add(searchBook);
         controlPanel.add(viewStatisticsButton);
+        controlPanel.add(searchBook);
+
+
         controlPanel.setPreferredSize(new Dimension(200, controlPanel.getPreferredSize().height));
 
         // Додавання панелей до вікна
