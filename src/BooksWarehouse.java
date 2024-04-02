@@ -16,11 +16,9 @@ public class BooksWarehouse {
     public ArrayList<Genre> getGenres() {return genres;}
     public void setName(String name) {this.name = name;}
 
-//    public void setGenres(ArrayList<Genre>){this.genres = genres;}
-
     public Genre findGenre(String name){
         for(int i=0; i<this.genres.size(); i++){
-            if(this.genres.get(i).getName() == name){
+            if(this.genres.get(i).getName().equals(name)){
                 return genres.get(i);
             }
         }
@@ -34,4 +32,6 @@ public class BooksWarehouse {
     public void deleteGenre(Genre genre){
         this.genres.remove(genre);
     }
+
+
 }
