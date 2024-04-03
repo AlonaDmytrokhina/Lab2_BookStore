@@ -50,5 +50,9 @@ public class BooksWarehouse {
         }
     }
 
+    public ArrayList<Book> getGenreBooks(Genre genre){
+        return genre.getBooks();
+    }
+
 
 }
