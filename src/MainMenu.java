@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
@@ -98,13 +100,13 @@ public class MainMenu extends JFrame {
 
         controlPanel.setPreferredSize(new Dimension(200, controlPanel.getPreferredSize().height));
 
-        defaultGenres();
-        addButtonGenres();
-
         // Додавання панелей до вікна
         add(groupPanel);
         add(productPanel);
         add(controlPanel);
+
+//        defaultGenres();
+//        addPannelGenres();
 
         pack();
         setLocationRelativeTo(null); // Центрувати вікно
@@ -118,13 +120,28 @@ public class MainMenu extends JFrame {
         ukrC.defaultBooks(booksWarehouse);
     }
 
-    private void addButtonGenres(){
+    private void addPannelGenres(){
         DefaultListModel<String> listModel = new DefaultListModel<>();
         JList<String> genresList = new JList<>(listModel);
         for (int i=0; i<booksWarehouse.getNGenres(); i++){
             listModel.add(i, booksWarehouse.getGenres().get(i).getName());
         }
         groupPanel.add(genresList);
+        groupPanel.add(new JScrollPane(genresList));
+
+        genresList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+
+                    String selectedGenre = genresList.getSelectedValue();
+                    PanelBooks panelBooks = new PanelBooks();
+                    panelBooks.deletePannelBooks(booksWarehouse.findGenre(selectedGenre), productPanel);
+                    panelBooks.addPanelBooks(booksWarehouse.findGenre(selectedGenre), productPanel);
+
+                }
+            }
+        });
     }
 
     public static void main(String[] args) {
