@@ -17,6 +17,8 @@ public class MainMenu extends JFrame {
     private JButton viewStatisticsButton, searchBook;
     private BooksWarehouse booksWarehouse = new BooksWarehouse("Book worm");
 
+
+
     public MainMenu() {
         setTitle("Система управління складом");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
