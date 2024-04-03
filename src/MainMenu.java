@@ -2,12 +2,15 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class MainMenu extends JFrame {
     private JPanel groupPanel, productPanel, controlPanel;
     private JList<String> groupList;
     private JList<String> productList;
+    DefaultListModel<String> listModel = new DefaultListModel<>();
     private JButton addGroupButton, editGroupButton, deleteGroupButton;
     private JButton addProductButton, editProductButton, deleteProductButton, viewDescriptionButton;
     private JTextField groupNameField, productNameField;
@@ -36,7 +39,9 @@ public class MainMenu extends JFrame {
         JPanel groupButtonPanel = new JPanel(new GridLayout(1, 3));
         addGroupButton = new JButton("Додати");
         editGroupButton = new JButton("Редагувати");
+        editGroupButton.setEnabled(false);
         deleteGroupButton = new JButton("Видалити");
+        deleteGroupButton.setEnabled(false);
         groupButtonPanel.add(addGroupButton);
         groupButtonPanel.add(editGroupButton);
         groupButtonPanel.add(deleteGroupButton);
@@ -116,6 +121,8 @@ public class MainMenu extends JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
                     handleCategorySelection();
+                    deleteGroupButton.setEnabled(true);
+                    editGroupButton.setEnabled(true);
                 }
             }
         });
@@ -130,7 +137,6 @@ public class MainMenu extends JFrame {
     }
 
     private void addButtonGenres() {
-        DefaultListModel<String> listModel = new DefaultListModel<>();
         for (int i = 0; i < booksWarehouse.getNGenres(); i++) {
             listModel.addElement(booksWarehouse.getGenres().get(i).getName());
         }
@@ -143,6 +149,7 @@ public class MainMenu extends JFrame {
         if (selectedCategory != null) {
             // Отримати список товарів для вибраної категорії та відобразити його у списку товарів
             displayProductsForCategory(selectedCategory);
+            deleteGenre(booksWarehouse.findGenre(selectedCategory));
         }
     }
 
@@ -156,6 +163,39 @@ public class MainMenu extends JFrame {
             productListModel.addElement(product.getName());
         }
         productList.setModel(productListModel);
+    }
+
+    private void addGenre(){
+        addGroupButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
+    private void editGenre(){
+        editGroupButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
+    private void deleteGenre(Genre genre){
+        deleteGroupButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String confirm = "Чи підтверджуєте ви видалення категорії \""+genre.getName()+"\"?";
+                JFrame frame = new JFrame();
+                DeleteGenre deleteGenre = new DeleteGenre(frame, confirm, booksWarehouse, genre);
+                deleteGenre.setVisible(true);
+                listModel.removeElement(genre);
+                groupList.revalidate();
+                groupList.repaint();
+            }
+        });
     }
 
     public static void main(String[] args) {

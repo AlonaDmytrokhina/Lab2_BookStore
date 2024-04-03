@@ -10,12 +10,14 @@ public class Genre {
     private String info;
     ArrayList<Book> books;
     File file;
+    private String path;
 
     Genre(String name, String info, String path){
         this.name = name;
         this.info = info;
         this.books = new ArrayList<>();
         this.file = new File(path);
+        this.path = path;
     }
 
     public String getName() {return name;}
@@ -29,6 +31,10 @@ public class Genre {
     public void setName(String name) {this.name = name;}
 
     public void setInfo(String info) {this.info = info;}
+
+    public File getFile() {return file;}
+
+    public String getPath() {return path;}
 
     public void toFile(){
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.file))) {
