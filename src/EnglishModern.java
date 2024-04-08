@@ -1,6 +1,8 @@
+import java.io.IOException;
+
 public class EnglishModern implements Genres{
     @Override
-    public void defaultBooks(BooksWarehouse booksWarehouse){
+    public void defaultBooks(BooksWarehouse booksWarehouse) throws IOException {
         String path = "EnglishModern.txt";
         Genre englishModern = new Genre("Література англійською", "ounijo", path);
 

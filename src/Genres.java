@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public interface Genres {
-    public void defaultBooks(BooksWarehouse booksWarehouse);
+    void defaultBooks(BooksWarehouse booksWarehouse) throws IOException;
 }

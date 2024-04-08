@@ -12,11 +12,14 @@ public class Genre {
     File file;
     private String path;
 
-    Genre(String name, String info, String path){
+    Genre(String name, String info, String path) throws IOException {
         this.name = name;
         this.info = info;
         this.books = new ArrayList<>();
         this.file = new File(path);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
         this.path = path;
     }
 

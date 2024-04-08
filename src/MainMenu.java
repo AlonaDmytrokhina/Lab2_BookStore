@@ -4,6 +4,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
 
 public class MainMenu extends JFrame {
@@ -104,7 +105,11 @@ public class MainMenu extends JFrame {
 
         controlPanel.setPreferredSize(new Dimension(200, controlPanel.getPreferredSize().height));
 
-        defaultGenres();
+        try {
+            defaultGenres();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         addButtonGenres();
 
         // Додавання панелей до вікна
@@ -128,7 +133,7 @@ public class MainMenu extends JFrame {
         });
     }
 
-    private void defaultGenres() {
+    private void defaultGenres() throws IOException {
         Detective det = new Detective();
         det.defaultBooks(booksWarehouse);
 
@@ -187,13 +192,11 @@ public class MainMenu extends JFrame {
         deleteGroupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String confirm = "Чи підтверджуєте ви видалення категорії \""+genre.getName()+"\"?";
-                JFrame frame = new JFrame();
-                DeleteGenre deleteGenre = new DeleteGenre(frame, confirm, booksWarehouse, genre);
-                deleteGenre.setVisible(true);
-                listModel.removeElement(genre);
-                groupList.revalidate();
-                groupList.repaint();
+                if(genre != null) {
+                    JFrame frame = new JFrame();
+                    DeleteGenre deleteGenre = new DeleteGenre(frame, booksWarehouse, genre, groupList, productList);
+                    deleteGenre.setVisible(true);
+                }
             }
         });
     }

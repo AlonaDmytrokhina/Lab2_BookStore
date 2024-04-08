@@ -1,6 +1,8 @@
+import java.io.IOException;
+
 public class Detective implements Genres{
     @Override
-    public void defaultBooks(BooksWarehouse booksWarehouse){
+    public void defaultBooks(BooksWarehouse booksWarehouse) throws IOException {
         String path = "Detective.txt";
         Genre detective = new Genre("Детектив", "ounijo", path);
 

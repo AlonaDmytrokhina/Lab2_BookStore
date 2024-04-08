@@ -8,13 +8,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class DeleteGenre extends JDialog {
-    private boolean confirmed;
 
-    public DeleteGenre(JFrame parent, String message, BooksWarehouse booksWarehouse, Genre genre) {
+    public DeleteGenre(JFrame parent, BooksWarehouse booksWarehouse, Genre genre, JList<String> groupList, JList<String> productList) {
         super(parent, "Підтверджуєте видалення?", true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JLabel label = new JLabel(message);
+        JLabel label = new JLabel("Чи підтверджуєте ви видалення категорії \""+genre.getName()+"\"?");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -39,6 +38,14 @@ public class DeleteGenre extends JDialog {
                     JOptionPane.showMessageDialog(parent, "Файл не існує.");
                 }
                 booksWarehouse.deleteGenre(genre);
+                DefaultListModel<String> model = (DefaultListModel<String>) groupList.getModel();
+                int selectedIndex = groupList.getSelectedIndex();
+                if (selectedIndex != -1) {
+                    model.remove(selectedIndex);
+                }
+
+                DefaultListModel<String> modelB = (DefaultListModel<String>) productList.getModel();
+                modelB.clear();
 
                 dispose();
             }

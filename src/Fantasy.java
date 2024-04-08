@@ -1,6 +1,8 @@
+import java.io.IOException;
+
 public class Fantasy implements Genres{
     @Override
-    public void defaultBooks(BooksWarehouse booksWarehouse){
+    public void defaultBooks(BooksWarehouse booksWarehouse) throws IOException {
         String path = "Fantasy.txt";
         Genre fantasy = new Genre("Фентезі", "ounijo", path);
 

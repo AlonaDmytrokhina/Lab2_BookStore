@@ -1,14 +1,19 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
     static BooksWarehouse booksWarehouse;
     public static void main(String[] args) {
         booksWarehouse = new BooksWarehouse("Book worm");
-        defaultGenres();
+        try {
+            defaultGenres();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         deleteBook();
     }
 
-    private static void defaultGenres(){
+    private static void defaultGenres() throws IOException {
         String path1 = "Detective.txt";
         Genre detective = new Genre("Детектив", "ounijo", path1);
 
