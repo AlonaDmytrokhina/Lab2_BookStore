@@ -22,6 +22,7 @@ public class MainMenu extends JFrame {
     private BooksWarehouse booksWarehouse = new BooksWarehouse("Book worm");
     private Genre choosedGenre;
     private Book choosedBook;
+    DeleteGenre deleteGenre;
 
 
     public MainMenu() {
@@ -136,6 +137,7 @@ public class MainMenu extends JFrame {
                 }
             }
         });
+        viewDescription();
     }
 
     private void defaultGenres() throws IOException {
@@ -144,6 +146,15 @@ public class MainMenu extends JFrame {
 
         UkrainianClassics ukrC = new UkrainianClassics();
         ukrC.defaultBooks(booksWarehouse);
+
+        UkrainianModern ukrM= new UkrainianModern();
+        ukrM.defaultBooks(booksWarehouse);
+
+        Fantasy fant = new Fantasy();
+        fant.defaultBooks(booksWarehouse);
+
+        EnglishModern engM = new EnglishModern();
+        engM.defaultBooks(booksWarehouse);
     }
 
     private void addButtonGenres() {
@@ -160,7 +171,7 @@ public class MainMenu extends JFrame {
             choosedGenre = booksWarehouse.findGenre(selectedCategory);
             // Отримати список товарів для вибраної категорії та відобразити його у списку товарів
             displayProductsForCategory();
-            deleteGenre(choosedGenre);
+            deleteGenre();
 
             addProductButton.setEnabled(true);
             productList.addListSelectionListener(new ListSelectionListener() {
@@ -195,7 +206,7 @@ public class MainMenu extends JFrame {
             editProductButton.setEnabled(true);
             viewDescriptionButton.setEnabled(true);
 
-            showBookInformatoin();
+            showBookInformation();
         }
     }
 
@@ -217,15 +228,18 @@ public class MainMenu extends JFrame {
         });
     }
 
-    private void deleteGenre(Genre genre){
+    private void deleteGenre(){
         deleteGroupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(genre != null) {
-                    JFrame frame = new JFrame();
-                    DeleteGenre deleteGenre = new DeleteGenre(frame, booksWarehouse, genre, groupList, productList);
+                if(booksWarehouse.findGenre(choosedGenre.getName()) != null) {
+                    if(deleteGenre == null) {
+                        JFrame frame = new JFrame();
+                        deleteGenre = new DeleteGenre(frame, booksWarehouse, booksWarehouse.findGenre(choosedGenre.getName()), groupList, productList);
+                    }
                     deleteGenre.setVisible(true);
 
+                    deleteGenre = null;
                     groupNameField.setText("");
                     productNameField.setText("");
                     productManufacturerField.setText("");
@@ -273,12 +287,16 @@ public class MainMenu extends JFrame {
         viewDescriptionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                // Отримати опис книги та вивести його у повідомленні
+                if (booksWarehouse.findBook(choosedBook.getName()) != null) {
+                    String description = choosedBook.getInfo();
+                    JOptionPane.showMessageDialog(MainMenu.this, description, "Опис книги", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
     }
 
-    private void showBookInformatoin(){
+    private void showBookInformation(){
         groupNameField.setText(choosedGenre.getName());
         productNameField.setText(choosedBook.getName());
         productManufacturerField.setText(choosedBook.getProducer());
