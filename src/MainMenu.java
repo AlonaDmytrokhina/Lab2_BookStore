@@ -14,7 +14,7 @@ public class MainMenu extends JFrame {
     DefaultListModel<String> listModel = new DefaultListModel<>();
     private JButton addGroupButton, editGroupButton, deleteGroupButton;
     private JButton addProductButton, editProductButton, deleteProductButton, viewDescriptionButton;
-    private JTextField groupNameField, productNameField;
+    private JTextField productNameField, productAuthorField;
     private JTextField productManufacturerField, productQuantityField, productPriceField;
     private JButton addStockButton, removeStockButton, changePrice;
     private JTextField searchField;
@@ -76,8 +76,8 @@ public class MainMenu extends JFrame {
         // Панель Керування
         controlPanel = new JPanel(new GridLayout(12, 1));
         controlPanel.setBorder(BorderFactory.createTitledBorder("Керування"));
-        groupNameField = new JTextField(10);
         productNameField = new JTextField(10);
+        productAuthorField = new JTextField(10);
         productManufacturerField = new JTextField(10);
         productQuantityField = new JTextField(10);
         productPriceField = new JTextField(10);
@@ -88,10 +88,10 @@ public class MainMenu extends JFrame {
         changePrice = new JButton("Змінити ціну");
         searchBook = new JButton("Шукати книгу");
 
-        controlPanel.add(new JLabel("Назва категорії:"));
-        controlPanel.add(groupNameField);
         controlPanel.add(new JLabel("Назва товару:"));
         controlPanel.add(productNameField);
+        controlPanel.add(new JLabel("Автор:"));
+        controlPanel.add(productAuthorField);
         controlPanel.add(new JLabel("Видавництво:"));
         controlPanel.add(productManufacturerField);
         controlPanel.add(new JLabel("Кількість:"));
@@ -240,14 +240,14 @@ public class MainMenu extends JFrame {
                     deleteGenre.setVisible(true);
 
                     deleteGenre = null;
-                    groupNameField.setText("");
                     productNameField.setText("");
+                    productAuthorField.setText("");
                     productManufacturerField.setText("");
                     productQuantityField.setText("");
                     productPriceField.setText("");
 
-                    groupNameField.setEditable(false);
                     productNameField.setEditable(false);
+                    productAuthorField.setEditable(false);
                     productManufacturerField.setEditable(false);
                     productQuantityField.setEditable(false);
                     productPriceField.setEditable(false);
@@ -278,11 +278,9 @@ public class MainMenu extends JFrame {
         deleteProductButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
             }
         });
     }
-
     private void viewDescription(){
         viewDescriptionButton.addActionListener(new ActionListener() {
             @Override
@@ -297,14 +295,14 @@ public class MainMenu extends JFrame {
     }
 
     private void showBookInformation(){
-        groupNameField.setText(choosedGenre.getName());
         productNameField.setText(choosedBook.getName());
+        productAuthorField.setText(choosedBook.getAuthor());
         productManufacturerField.setText(choosedBook.getProducer());
         productQuantityField.setText(String.valueOf(choosedBook.getAmount()));
         productPriceField.setText(String.valueOf(choosedBook.getCost()));
 
-        groupNameField.setEditable(false);
         productNameField.setEditable(false);
+        productAuthorField.setEditable(false);
         productManufacturerField.setEditable(false);
         productQuantityField.setEditable(false);
         productPriceField.setEditable(false);

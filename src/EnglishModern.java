@@ -16,7 +16,6 @@ public class EnglishModern implements Genres{
         int amount1 = 1;
         double cost1 = 625;
         Book book1 = new Book(name1, author1, info1, producer1, amount1, cost1);
-
         String name2 = "Me before you";
         String author2 = "Jojo Moyes";
         String info2 = "When Lou Clark loses her job at a café, she is given a job caring for Will Traynor. " +

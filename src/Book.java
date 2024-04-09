@@ -35,6 +35,10 @@ public class Book {
         return cost;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
     public void setName(String name) {this.name = name;}
 
     public void setInfo(String info) {this.info = info;}
