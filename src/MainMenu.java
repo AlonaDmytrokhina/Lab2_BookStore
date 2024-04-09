@@ -138,6 +138,7 @@ public class MainMenu extends JFrame {
             }
         });
         viewDescription();
+        editGenre();
     }
 
     private void defaultGenres() throws IOException {
@@ -223,9 +224,21 @@ public class MainMenu extends JFrame {
         editGroupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                String newGenreName = JOptionPane.showInputDialog(MainMenu.this, "Введіть нову назву жанру:", choosedGenre.getName());
+                if (newGenreName != null && !newGenreName.isEmpty()) {
+                    booksWarehouse.findGenre(choosedGenre.getName()).setName(newGenreName);
+                    booksWarehouse.findGenre(choosedGenre.getName()).toFile();
+                    updateGenreList();
+                }
             }
         });
+    }
+
+    private void updateGenreList() {
+        listModel.clear();
+        for (Genre genre : booksWarehouse.getGenres()) {
+            listModel.addElement(genre.getName());
+        }
     }
 
     private void deleteGenre(){
