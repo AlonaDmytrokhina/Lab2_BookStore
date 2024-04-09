@@ -4,7 +4,7 @@ public class UkrainianModern implements Genres{
     @Override
     public void defaultBooks(BooksWarehouse booksWarehouse) throws IOException {
         String path = "UkrainianModern.txt";
-        Genre ukrainianModern = new Genre("Українська сучасна", "ounijo", path);
+        Genre ukrainianModern = new Genre("Українська сучасна", "...", path);
 
         String name1 = "Ліниві і ніжні";
         String author1 = "Юрій Іздрик";

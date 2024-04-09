@@ -4,7 +4,7 @@ public class Fantasy implements Genres{
     @Override
     public void defaultBooks(BooksWarehouse booksWarehouse) throws IOException {
         String path = "Fantasy.txt";
-        Genre fantasy = new Genre("Фентезі", "ounijo", path);
+        Genre fantasy = new Genre("Фентезі", "...", path);
 
         String name1 = "Правда";
         String author1 = "Террі Пратчетт";

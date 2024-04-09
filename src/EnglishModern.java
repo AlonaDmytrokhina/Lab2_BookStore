@@ -4,7 +4,7 @@ public class EnglishModern implements Genres{
     @Override
     public void defaultBooks(BooksWarehouse booksWarehouse) throws IOException {
         String path = "EnglishModern.txt";
-        Genre englishModern = new Genre("Література англійською", "ounijo", path);
+        Genre englishModern = new Genre("Література англійською", "...", path);
 
         String name1 = "Us against you";
         String author1 = "Fredrikv Backman";

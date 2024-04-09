@@ -4,7 +4,7 @@ public class Detective implements Genres{
     @Override
     public void defaultBooks(BooksWarehouse booksWarehouse) throws IOException {
         String path = "Detective.txt";
-        Genre detective = new Genre("Детектив", "ounijo", path);
+        Genre detective = new Genre("Детектив", "...", path);
 
         String name1 = "Чорнильне серце";
         String author1 = "Роберт Галбрейт";

@@ -137,8 +137,11 @@ public class MainMenu extends JFrame {
                 }
             }
         });
-        viewDescription();
+        addGenre();
         editGenre();
+        deleteGenre();
+
+        viewDescription();
     }
 
     private void defaultGenres() throws IOException {
@@ -172,7 +175,6 @@ public class MainMenu extends JFrame {
             choosedGenre = booksWarehouse.findGenre(selectedCategory);
             // Отримати список товарів для вибраної категорії та відобразити його у списку товарів
             displayProductsForCategory();
-            deleteGenre();
 
             addProductButton.setEnabled(true);
             productList.addListSelectionListener(new ListSelectionListener() {
@@ -215,7 +217,33 @@ public class MainMenu extends JFrame {
         addGroupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JTextField genreNameField = new JTextField();
+                JTextField filePathField = new JTextField();
+                JPanel panel = new JPanel(new GridLayout(2, 2));
+                panel.add(new JLabel("Назва категорії:"));
+                panel.add(genreNameField);
+                panel.add(new JLabel("Назва файлу:"));
+                panel.add(filePathField);
 
+                int result = JOptionPane.showConfirmDialog(MainMenu.this, panel, "Додати нову категорію", JOptionPane.OK_CANCEL_OPTION);
+                if (result == JOptionPane.OK_OPTION) {
+                    String newGenreName = genreNameField.getText();
+                    String filePath = filePathField.getText()+".txt";
+                    if (!newGenreName.isEmpty() && !filePath.isEmpty()) {
+                        Genre newGenre;
+                        try {
+                            newGenre = new Genre(newGenreName,"...", filePath);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        booksWarehouse.addGenre(newGenre);
+                        newGenre.toFile();
+                        listModel.addElement(newGenreName);
+                        updateGenreList();
+                    } else {
+                        JOptionPane.showMessageDialog(MainMenu.this, "Будь ласка, введіть назву категорії та файлу", "Помилка", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
         });
     }
@@ -224,7 +252,7 @@ public class MainMenu extends JFrame {
         editGroupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String newGenreName = JOptionPane.showInputDialog(MainMenu.this, "Введіть нову назву жанру:", choosedGenre.getName());
+                String newGenreName = JOptionPane.showInputDialog(MainMenu.this, "Введіть нову назву категорії:", choosedGenre.getName());
                 if (newGenreName != null && !newGenreName.isEmpty()) {
                     booksWarehouse.findGenre(choosedGenre.getName()).setName(newGenreName);
                     booksWarehouse.findGenre(choosedGenre.getName()).toFile();

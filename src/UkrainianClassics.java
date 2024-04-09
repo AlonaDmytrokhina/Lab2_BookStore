@@ -4,7 +4,7 @@ public class UkrainianClassics implements Genres{
     @Override
     public void defaultBooks(BooksWarehouse booksWarehouse) throws IOException {
         String path = "UkrainianClassics.txt";
-        Genre ukrainianClassics = new Genre("Українська класика", "ounijo", path);
+        Genre ukrainianClassics = new Genre("Українська класика", "...", path);
 
         String name1 = "Майстер корабля.Байгород";
         String author1 = "Юрій Яновський";
