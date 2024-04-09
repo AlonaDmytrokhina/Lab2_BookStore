@@ -20,7 +20,8 @@ public class MainMenu extends JFrame {
     private JTextField searchField;
     private JButton viewStatisticsButton, searchBook;
     private BooksWarehouse booksWarehouse = new BooksWarehouse("Book worm");
-
+    private Genre choosedGenre;
+    private Book choosedBook;
 
 
     public MainMenu() {
@@ -58,9 +59,13 @@ public class MainMenu extends JFrame {
 
         JPanel productButtonPanel = new JPanel(new GridLayout(1, 4));
         addProductButton = new JButton("Додати");
+        addProductButton.setEnabled(false);
         editProductButton = new JButton("Редагувати");
+        editProductButton.setEnabled(false);
         deleteProductButton = new JButton("Видалити");
+        deleteProductButton.setEnabled(false);
         viewDescriptionButton = new JButton("Опис");
+        viewDescriptionButton.setEnabled(false);
         productButtonPanel.add(addProductButton);
         productButtonPanel.add(editProductButton);
         productButtonPanel.add(deleteProductButton);
@@ -152,22 +157,46 @@ public class MainMenu extends JFrame {
     private void handleCategorySelection() {
         String selectedCategory = groupList.getSelectedValue();
         if (selectedCategory != null) {
+            choosedGenre = booksWarehouse.findGenre(selectedCategory);
             // Отримати список товарів для вибраної категорії та відобразити його у списку товарів
-            displayProductsForCategory(selectedCategory);
-            deleteGenre(booksWarehouse.findGenre(selectedCategory));
+            displayProductsForCategory();
+            deleteGenre(choosedGenre);
+
+            addProductButton.setEnabled(true);
+            productList.addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    if (!e.getValueIsAdjusting()) {
+                        handleProductSelection();
+                    }
+                }
+            });
         }
     }
 
     // Метод для відображення товарів для вибраної категорії
-    private void displayProductsForCategory(String categoryName) {
+    private void displayProductsForCategory() {
         // Отримати список товарів для вибраної категорії та відобразити їх у списку товарів
-        List<Book> products = booksWarehouse.getGenreBooks(booksWarehouse.findGenre(categoryName));
+        List<Book> products = booksWarehouse.getGenreBooks(choosedGenre);
         DefaultListModel<String> productListModel = new DefaultListModel<>();
         for (Book product : products) {
             // Додайте назву товару до списку товарів
             productListModel.addElement(product.getName());
         }
         productList.setModel(productListModel);
+    }
+
+    private void handleProductSelection() {
+        String selectedProduct = productList.getSelectedValue();
+        if (selectedProduct != null) {
+            choosedBook = choosedGenre.findBook(selectedProduct);
+
+            deleteProductButton.setEnabled(true);
+            editProductButton.setEnabled(true);
+            viewDescriptionButton.setEnabled(true);
+
+            showBookInformatoin();
+        }
     }
 
     private void addGenre(){
@@ -196,9 +225,59 @@ public class MainMenu extends JFrame {
                     JFrame frame = new JFrame();
                     DeleteGenre deleteGenre = new DeleteGenre(frame, booksWarehouse, genre, groupList, productList);
                     deleteGenre.setVisible(true);
+
+                    groupNameField.setText("");
+                    productNameField.setText("");
+                    productManufacturerField.setText("");
+                    productQuantityField.setText("");
+                    productPriceField.setText("");
                 }
             }
         });
+    }
+
+    private void addBook(){
+        addProductButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
+    private void editBook(){
+        editProductButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
+    private void deleteBook(){
+        deleteProductButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
+    private void viewDescription(){
+        viewDescriptionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
+    private void showBookInformatoin(){
+        groupNameField.setText(choosedGenre.getName());
+        productNameField.setText(choosedBook.getName());
+        productManufacturerField.setText(choosedBook.getProducer());
+        productQuantityField.setText(String.valueOf(choosedBook.getAmount()));
+        productPriceField.setText(String.valueOf(choosedBook.getCost()));
     }
 
     public static void main(String[] args) {
