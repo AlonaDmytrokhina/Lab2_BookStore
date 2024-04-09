@@ -231,6 +231,12 @@ public class MainMenu extends JFrame {
                     productManufacturerField.setText("");
                     productQuantityField.setText("");
                     productPriceField.setText("");
+
+                    groupNameField.setEditable(false);
+                    productNameField.setEditable(false);
+                    productManufacturerField.setEditable(false);
+                    productQuantityField.setEditable(false);
+                    productPriceField.setEditable(false);
                 }
             }
         });
@@ -278,6 +284,12 @@ public class MainMenu extends JFrame {
         productManufacturerField.setText(choosedBook.getProducer());
         productQuantityField.setText(String.valueOf(choosedBook.getAmount()));
         productPriceField.setText(String.valueOf(choosedBook.getCost()));
+
+        groupNameField.setEditable(false);
+        productNameField.setEditable(false);
+        productManufacturerField.setEditable(false);
+        productQuantityField.setEditable(false);
+        productPriceField.setEditable(false);
     }
 
     public static void main(String[] args) {
