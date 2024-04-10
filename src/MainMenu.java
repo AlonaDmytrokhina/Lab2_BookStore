@@ -142,6 +142,8 @@ public class MainMenu extends JFrame {
         deleteGenre();
 
         viewDescription();
+
+        deleteBook();
     }
 
     private void defaultGenres() throws IOException {
@@ -175,6 +177,7 @@ public class MainMenu extends JFrame {
             choosedGenre = booksWarehouse.findGenre(selectedCategory);
             // Отримати список товарів для вибраної категорії та відобразити його у списку товарів
             displayProductsForCategory();
+            clearButtons();
 
             addProductButton.setEnabled(true);
             productList.addListSelectionListener(new ListSelectionListener() {
@@ -280,18 +283,10 @@ public class MainMenu extends JFrame {
                     }
                     deleteGenre.setVisible(true);
 
-                    deleteGenre = null;
-                    productNameField.setText("");
-                    productAuthorField.setText("");
-                    productManufacturerField.setText("");
-                    productQuantityField.setText("");
-                    productPriceField.setText("");
-
-                    productNameField.setEditable(false);
-                    productAuthorField.setEditable(false);
-                    productManufacturerField.setEditable(false);
-                    productQuantityField.setEditable(false);
-                    productPriceField.setEditable(false);
+                    if (booksWarehouse.findGenre(choosedGenre.getName())==null) {
+                        deleteGenre = null;
+                        clearButtons();
+                    }
                 }
             }
         });
@@ -319,6 +314,15 @@ public class MainMenu extends JFrame {
         deleteProductButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(booksWarehouse.findGenre(choosedGenre.getName()) != null) {
+                    JFrame frame = new JFrame();
+                    DeleteBook deleteBook = new DeleteBook(frame, booksWarehouse.findGenre(choosedGenre.getName()), booksWarehouse.findBook(choosedBook.getName()), productList);
+                    deleteBook.setVisible(true);
+
+                    if (booksWarehouse.findBook(choosedBook.getName())==null) {
+                        clearButtons();
+                    }
+                }
             }
         });
     }
@@ -341,6 +345,20 @@ public class MainMenu extends JFrame {
         productManufacturerField.setText(choosedBook.getProducer());
         productQuantityField.setText(String.valueOf(choosedBook.getAmount()));
         productPriceField.setText(String.valueOf(choosedBook.getCost()));
+
+        productNameField.setEditable(false);
+        productAuthorField.setEditable(false);
+        productManufacturerField.setEditable(false);
+        productQuantityField.setEditable(false);
+        productPriceField.setEditable(false);
+    }
+
+    private void clearButtons(){
+        productNameField.setText("");
+        productAuthorField.setText("");
+        productManufacturerField.setText("");
+        productQuantityField.setText("");
+        productPriceField.setText("");
 
         productNameField.setEditable(false);
         productAuthorField.setEditable(false);
