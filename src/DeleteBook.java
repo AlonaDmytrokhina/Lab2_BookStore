@@ -12,7 +12,7 @@ public class DeleteBook extends JDialog {
         super(parent, "Підтверджуєте видалення?", true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JLabel label = new JLabel("Чи підтверджуєте ви видалення категорії \""+book.getName()+"\"?");
+        JLabel label = new JLabel("Чи підтверджуєте ви видалення товару \""+book.getName()+"\"?");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 

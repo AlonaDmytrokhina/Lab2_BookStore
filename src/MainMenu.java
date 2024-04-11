@@ -105,6 +105,7 @@ public class MainMenu extends JFrame {
         controlPanel.add(new JLabel("Ціна:"));
         controlPanel.add(productPriceField);
         controlPanel.add(Box.createVerticalStrut(30));
+        newPrice();
         controlPanel.add(changePrice);
         controlPanel.add(new JLabel("Пошук:"));
         controlPanel.add(searchField);
@@ -148,6 +149,34 @@ public class MainMenu extends JFrame {
 
         searchingBooks();
     }
+    private void newPrice(){
+        changePrice.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                changePrice();
+            }
+        });
+    }
+    private void changePrice() {
+        String newPriceStr = JOptionPane.showInputDialog(MainMenu.this, "Введіть нову ціну:");
+        try {
+            double newPrice = Double.parseDouble(newPriceStr);
+            if (newPrice > 0) {
+                // Оновлення ціни вибраної книги
+                if (choosedBook != null) {
+                    booksWarehouse.findBook(choosedBook.getName()).setCost(newPrice);
+                    booksWarehouse.findGenre(choosedGenre.getName()).toFile();
+
+                    productPriceField.setText(String.valueOf(newPrice));
+                }
+            } else {
+                JOptionPane.showMessageDialog(MainMenu.this, "Ціна повинна бути додатнім числом", "Помилка", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(MainMenu.this, "Будь ласка, введіть коректне число", "Помилка", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 
     private void defaultGenres() throws IOException {
         Detective det = new Detective();

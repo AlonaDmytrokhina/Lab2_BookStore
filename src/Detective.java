@@ -13,9 +13,10 @@ public class Detective implements Genres{
                 "\n\tпереслідує таємнича особа з інтернету, що називає себе Аномія. Еді конче треба дізнатися, хто ця людина. " +
                 "\n\tРобін вирішує, що у такій справі агенція допомогти не може — і більше не згадує про цей випадок, " +
                 "\n\tаж поки за кілька днів не надходить шокуюча новина: Еді викрали, використавши шокер, та вбили на Гайґейтському цвинтарі.";
-        String producer1 = "КСД";
-        int amount1 = 4;
-        double cost1 = 220;
+
+        String producer1 = "Жорж";
+        int amount1 = 2;
+        double cost1 = 620;
         Book book1 = new Book(name1, author1, info1, producer1, amount1, cost1);
 
         String name2 = "Смерть на Нілі";
@@ -27,9 +28,9 @@ public class Detective implements Genres{
                 "\n\tОднак Жаклін має залізне алібі. У справу втручається відомий харизматичний детектив Еркюль Пуаро. " +
                 "\n\tВиявляється, майже всі пасажири мали мотив для вбивства. Щось приховує чи не кожен із них, а кілька, " +
                 "\n\tяк стає відомо, подорожують зі зброєю. То хто цей холоднокровний убивця, що не зупиняється на одному злочині? ";
-        String producer2 = "Жорж";
-        int amount2 = 2;
-        double cost2 = 620;
+        String producer2 = "КСД";
+        int amount2 = 4;
+        double cost2 = 220;
         Book book2 = new Book(name2, author2, info2, producer2, amount2, cost2);
 
         String name3 = "Цвинтар для божевільних";
