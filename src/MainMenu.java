@@ -342,17 +342,43 @@ public class MainMenu extends JFrame {
     }
 
     private void editBookName() {
-        String newBookName = JOptionPane.showInputDialog(MainMenu.this, "Введіть нову назву товару:", choosedBook.getName());
-        if (newBookName != null && !newBookName.isEmpty()) {
-            if (choosedBook != null) {
-                booksWarehouse.findBook(choosedBook.getName()).setName(newBookName);
+        JTextField nameField = new JTextField(choosedBook.getName());
+        JTextField authorField = new JTextField(choosedBook.getAuthor());
+        JTextField publisherField = new JTextField(choosedBook.getProducer());
+
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.add(new JLabel("Назва товару:"));
+        panel.add(nameField);
+        panel.add(new JLabel("Автор:"));
+        panel.add(authorField);
+        panel.add(new JLabel("Видавництво:"));
+        panel.add(publisherField);
+
+        int result = JOptionPane.showConfirmDialog(null, panel, "Редагувати товар", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            String newName = nameField.getText().trim();
+            String newAuthor = authorField.getText().trim();
+            String newPublisher = publisherField.getText().trim();
+
+            if (!newName.isEmpty() && !newAuthor.isEmpty() && !newPublisher.isEmpty()) {
+                booksWarehouse.findBook(choosedBook.getName()).setName(newName);
+                booksWarehouse.findGenre(choosedGenre.getName()).toFile();
+                booksWarehouse.findBook(choosedBook.getName()).setAuthor(newAuthor);
+                booksWarehouse.findGenre(choosedGenre.getName()).toFile();
+                booksWarehouse.findBook(choosedBook.getName()).setProducer(newPublisher);
                 booksWarehouse.findGenre(choosedGenre.getName()).toFile();
 
-                productNameField.setText(newBookName);
+                productNameField.setText(newName);
+                productAuthorField.setText(newAuthor);
+                productManufacturerField.setText(newPublisher);
+
                 displayProductsForCategory();
+            } else {
+                JOptionPane.showMessageDialog(null, "Будь ласка, заповніть всі поля", "Попередження", JOptionPane.WARNING_MESSAGE);
             }
         }
     }
+
     private void editBook(){
         editProductButton.addActionListener(new ActionListener() {
             @Override
