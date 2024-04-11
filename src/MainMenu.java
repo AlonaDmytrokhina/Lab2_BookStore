@@ -210,6 +210,9 @@ public class MainMenu extends JFrame {
         String selectedProduct = productList.getSelectedValue();
         if (selectedProduct != null) {
             choosedBook = booksWarehouse.findBook(selectedProduct);
+            if (choosedGenre==null){
+                choosedGenre = booksWarehouse.findBookGenre(booksWarehouse.findBook(selectedProduct));
+            }
 
             deleteProductButton.setEnabled(true);
             editProductButton.setEnabled(true);
@@ -374,7 +377,6 @@ public class MainMenu extends JFrame {
                     public void valueChanged(ListSelectionEvent e) {
                         if (!e.getValueIsAdjusting()) {
                             handleProductSelection();
-//                            choosedGenre = booksWarehouse.findBookGenre(choosedBook);
                         }
                     }
                 });
