@@ -39,6 +39,10 @@ public class Book {
         return author;
     }
 
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public void setName(String name) {this.name = name;}
 
     public void setInfo(String info) {this.info = info;}
@@ -48,6 +52,7 @@ public class Book {
     public void setAmount(int amount) {this.amount = amount;}
 
     public void setCost(double cost) {this.cost = cost;}
+
 
     public double getOverallCost(){return this.amount*this.cost;}
 

@@ -65,6 +65,7 @@ public class MainMenu extends JFrame {
         addProductButton.setEnabled(false);
         editProductButton = new JButton("Редагувати");
         editProductButton.setEnabled(false);
+        editBook();
         deleteProductButton = new JButton("Видалити");
         deleteProductButton.setEnabled(false);
         viewDescriptionButton = new JButton("Опис");
@@ -338,13 +339,26 @@ public class MainMenu extends JFrame {
         });
     }
 
+    private void editBookName() {
+        String newBookName = JOptionPane.showInputDialog(MainMenu.this, "Введіть нову назву товару:", choosedBook.getName());
+        if (newBookName != null && !newBookName.isEmpty()) {
+            if (choosedBook != null) {
+                booksWarehouse.findBook(choosedBook.getName()).setName(newBookName);
+                booksWarehouse.findGenre(choosedGenre.getName()).toFile();
+
+                productNameField.setText(newBookName);
+                displayProductsForCategory();
+            }
+        }
+    }
     private void editBook(){
         editProductButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                editBookName();
             }
         });
+
     }
 
     private void deleteBook(){
