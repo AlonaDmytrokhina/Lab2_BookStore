@@ -54,5 +54,23 @@ public class BooksWarehouse {
         return genre.getBooks();
     }
 
+    public Genre findBookGenre(Book book){
+        for(int i=0; i< genres.size(); i++){
+            if(genres.get(i).findBook(book.getName())!=null){
+                return genres.get(i);
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Book> getAllBooks(){
+        ArrayList<Book> books = new ArrayList<>();
+        for (int i = 0; i < genres.size(); i++) {
+            for (int j = 0; j < genres.get(i).getNBooks(); j++) {
+                books.add(genres.get(i).getBooks().get(j));
+            }
+        }
+        return books;
+    }
 
 }

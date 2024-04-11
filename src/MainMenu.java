@@ -5,13 +5,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainMenu extends JFrame {
     private JPanel groupPanel, productPanel, controlPanel;
     private JList<String> groupList;
     private JList<String> productList;
-    DefaultListModel<String> listModel = new DefaultListModel<>();
+    DefaultListModel<String> listModelCategories = new DefaultListModel<>();
+    DefaultListModel<String> listModelBooks = new DefaultListModel<>();
     private JButton addGroupButton, editGroupButton, deleteGroupButton;
     private JButton addProductButton, editProductButton, deleteProductButton, viewDescriptionButton;
     private JTextField productNameField, productAuthorField;
@@ -141,9 +143,10 @@ public class MainMenu extends JFrame {
         editGenre();
         deleteGenre();
 
+        deleteBook();
         viewDescription();
 
-        deleteBook();
+        searchingBooks();
     }
 
     private void defaultGenres() throws IOException {
@@ -165,9 +168,9 @@ public class MainMenu extends JFrame {
 
     private void addButtonGenres() {
         for (int i = 0; i < booksWarehouse.getNGenres(); i++) {
-            listModel.addElement(booksWarehouse.getGenres().get(i).getName());
+            listModelCategories.addElement(booksWarehouse.getGenres().get(i).getName());
         }
-        groupList.setModel(listModel);
+        groupList.setModel(listModelCategories);
     }
 
     // Метод для обробки події натискання на елемент категорії
@@ -193,20 +196,20 @@ public class MainMenu extends JFrame {
 
     // Метод для відображення товарів для вибраної категорії
     private void displayProductsForCategory() {
+        listModelBooks.clear();
         // Отримати список товарів для вибраної категорії та відобразити їх у списку товарів
         List<Book> products = booksWarehouse.getGenreBooks(choosedGenre);
-        DefaultListModel<String> productListModel = new DefaultListModel<>();
         for (Book product : products) {
             // Додайте назву товару до списку товарів
-            productListModel.addElement(product.getName());
+            listModelBooks.addElement(product.getName());
         }
-        productList.setModel(productListModel);
+        productList.setModel(listModelBooks);
     }
 
     private void handleProductSelection() {
         String selectedProduct = productList.getSelectedValue();
         if (selectedProduct != null) {
-            choosedBook = choosedGenre.findBook(selectedProduct);
+            choosedBook = booksWarehouse.findBook(selectedProduct);
 
             deleteProductButton.setEnabled(true);
             editProductButton.setEnabled(true);
@@ -241,7 +244,7 @@ public class MainMenu extends JFrame {
                         }
                         booksWarehouse.addGenre(newGenre);
                         newGenre.toFile();
-                        listModel.addElement(newGenreName);
+                        listModelCategories.addElement(newGenreName);
                         updateGenreList();
                     } else {
                         JOptionPane.showMessageDialog(MainMenu.this, "Будь ласка, введіть назву категорії та файлу", "Помилка", JOptionPane.ERROR_MESSAGE);
@@ -266,9 +269,9 @@ public class MainMenu extends JFrame {
     }
 
     private void updateGenreList() {
-        listModel.clear();
+        listModelCategories.clear();
         for (Genre genre : booksWarehouse.getGenres()) {
-            listModel.addElement(genre.getName());
+            listModelCategories.addElement(genre.getName());
         }
     }
 
@@ -351,6 +354,46 @@ public class MainMenu extends JFrame {
         productManufacturerField.setEditable(false);
         productQuantityField.setEditable(false);
         productPriceField.setEditable(false);
+    }
+
+    private void searchingBooks(){
+        searchBook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                choosedGenre = null;
+                choosedBook = null;
+                listModelBooks.clear();
+                clearButtons();
+                List<Book> products = search(searchField.getText());
+                for (Book product : products) {
+                    listModelBooks.addElement(product.getName());
+                }
+                productList.setModel(listModelBooks);
+                productList.addListSelectionListener(new ListSelectionListener() {
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+                        if (!e.getValueIsAdjusting()) {
+                            handleProductSelection();
+//                            choosedGenre = booksWarehouse.findBookGenre(choosedBook);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    private List<Book> search(String input){
+        if (!input.equals("")) {
+            List<Book> books = new ArrayList<>();
+            List<Book> allBooks = booksWarehouse.getAllBooks(); // Отримати список книг тільки раз
+            for (Book book : allBooks) {
+                if (book.getName().toLowerCase().startsWith(input.toLowerCase())) {
+                    books.add(book);
+                }
+            }
+            return books;
+        }
+        return null;
     }
 
     private void clearButtons(){
