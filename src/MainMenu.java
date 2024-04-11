@@ -85,7 +85,9 @@ public class MainMenu extends JFrame {
         productPriceField = new JTextField(10);
         searchField = new JTextField(10);
         addStockButton = new JButton("Додати товар на склад");
+        increaseProduct();
         removeStockButton = new JButton("Cписати товар зі складу");
+        reducingProduct();
         viewStatisticsButton = new JButton("Переглянути статистику");
         changePrice = new JButton("Змінити ціну");
         searchBook = new JButton("Шукати книгу");
@@ -441,6 +443,61 @@ public class MainMenu extends JFrame {
         productPriceField.setEditable(false);
     }
 
+    private void increaseProduct() {
+        addStockButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String quantityStr = JOptionPane.showInputDialog(MainMenu.this, "Введіть кількість товару для додавання:");
+                try {
+                    int quantityToAdd = Integer.parseInt(quantityStr);
+                    if (quantityToAdd > 0) {
+                        // Додати кількість товару до тої що була
+                        if (choosedBook != null) {
+                            int currentQuan = choosedBook.getAmount();
+                            booksWarehouse.findBook(choosedBook.getName()).setAmount(currentQuan + quantityToAdd);
+                            booksWarehouse.findGenre(choosedGenre.getName()).toFile();
+                            productQuantityField.setText(String.valueOf(choosedBook.getAmount()));
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(MainMenu.this, "Кількість повинна бути більше нуля", "Помилка", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(MainMenu.this, "Введіть ціле число", "Помилка", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    }
+    private void reducingProduct() {
+        removeStockButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String quantityStr = JOptionPane.showInputDialog(MainMenu.this, "Введіть кількість товару для списання:");
+                try {
+                    int quantityToRemove = Integer.parseInt(quantityStr);
+                    if (quantityToRemove > 0) {
+                        // Відняти введену кількість товару від наявної
+                        if (choosedBook != null) {
+                            int currentQuantity = choosedBook.getAmount();
+                            int newQuantity = currentQuantity - quantityToRemove;
+                            // Перевірка на від'ємну кількість товару
+                            if (newQuantity >= 0) {
+                                booksWarehouse.findBook(choosedBook.getName()).setAmount(newQuantity);
+                                booksWarehouse.findGenre(choosedGenre.getName()).toFile();
+                                // Оновіть відображення кількості товару у вікні
+                                productQuantityField.setText(String.valueOf(choosedBook.getAmount()));
+                            } else {
+                                JOptionPane.showMessageDialog(MainMenu.this, "Недостатня кількість товару на складі", "Помилка", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(MainMenu.this, "Кількість повинна бути більше нуля", "Помилка", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(MainMenu.this, "Будь ласка, введіть ціле число", "Помилка", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             MainMenu wms = new MainMenu();
