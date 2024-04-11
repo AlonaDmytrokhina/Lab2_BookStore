@@ -29,7 +29,7 @@ public class MainMenu extends JFrame {
 
     public MainMenu() {
         setTitle("Система управління складом");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
         setLayout(new GridLayout(1, 3));
 
         // Панель Групи
@@ -65,7 +65,6 @@ public class MainMenu extends JFrame {
         addProductButton.setEnabled(false);
         editProductButton = new JButton("Редагувати");
         editProductButton.setEnabled(false);
-        editBook();
         deleteProductButton = new JButton("Видалити");
         deleteProductButton.setEnabled(false);
         viewDescriptionButton = new JButton("Опис");
@@ -147,6 +146,8 @@ public class MainMenu extends JFrame {
         editGenre();
         deleteGenre();
 
+        addBook();
+        editBook();
         deleteBook();
         viewDescription();
 
@@ -334,7 +335,8 @@ public class MainMenu extends JFrame {
         addProductButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                AddBook addBook = new AddBook(booksWarehouse, booksWarehouse.findGenre(choosedGenre.getName()), productList);
+                addBook.setVisible(true);
             }
         });
     }
