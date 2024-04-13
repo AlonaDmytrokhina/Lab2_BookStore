@@ -152,6 +152,7 @@ public class MainMenu extends JFrame {
         viewDescription();
 
         searchingBooks();
+        viewStatist();
     }
     private void newPrice(){
         changePrice.addActionListener(new ActionListener() {
@@ -540,6 +541,55 @@ public class MainMenu extends JFrame {
             }
         });
     }
+    private void viewStatist(){
+        viewStatisticsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewStatistics();
+            }
+        });
+
+    }
+
+    private void viewStatistics() {
+        StringBuilder statistics = new StringBuilder();
+
+        // товари з інформацією по складу
+        statistics.append("Всі товари на складі:\n");
+        for (Genre genre : booksWarehouse.getGenres()) {
+            statistics.append("Категорія: ").append(genre.getName()).append("\n");
+            for (Book book : genre.getBooks()) {
+                statistics.append("   Назва: ").append(book.getName()).append(", Кількість: ").append(book.getAmount()).append(", Ціна: ").append(book.getCost()).append("\n");
+            }
+        }
+
+        //  загальна вартость товару на складі
+        double totalValue = 0;
+        for (Genre genre : booksWarehouse.getGenres()) {
+            for (Book book : genre.getBooks()) {
+                totalValue += book.getAmount() * book.getCost();
+            }
+        }
+        statistics.append("\n\tЗагальна вартість товару на складі: ").append(totalValue).append("\n");
+
+        // Вивід загальної вартості товарів в групі товарів
+        statistics.append("\n\tВартість товарів по категоріям:\n");
+        for (Genre genre : booksWarehouse.getGenres()) {
+            double genreValue = 0;
+            for (Book book : genre.getBooks()) {
+                genreValue += book.getAmount() * book.getCost();
+            }
+            statistics.append("Категорія: ").append(genre.getName()).append(", Вартість: ").append(genreValue).append("\n");
+        }
+
+        // Відображення вікна зі статистикою
+        JTextArea statisticsArea = new JTextArea(statistics.toString());
+        statisticsArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(statisticsArea);
+        scrollPane.setPreferredSize(new Dimension(600, 400));
+        JOptionPane.showMessageDialog(MainMenu.this, scrollPane, "Статистика", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             MainMenu wms = new MainMenu();
