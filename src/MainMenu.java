@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainMenu extends JFrame {
+public class  MainMenu extends JFrame {
     private JPanel groupPanel, productPanel, controlPanel;
     private JList<String> groupList;
     private JList<String> productList;
@@ -95,6 +95,10 @@ public class MainMenu extends JFrame {
         viewStatisticsButton = new JButton("Переглянути статистику");
         changePrice = new JButton("Змінити ціну");
         searchBook = new JButton("Шукати книгу");
+
+        addStockButton.setEnabled(false);
+        removeStockButton.setEnabled(false);
+        changePrice.setEnabled(false);
 
         controlPanel.add(new JLabel("Назва товару:"));
         controlPanel.add(productNameField);
@@ -225,6 +229,13 @@ public class MainMenu extends JFrame {
             clearButtons();
 
             addProductButton.setEnabled(true);
+
+            addStockButton.setEnabled(false);
+            removeStockButton.setEnabled(false);
+            changePrice.setEnabled(false);
+            deleteProductButton.setEnabled(false);
+            editProductButton.setEnabled(false);
+            viewDescriptionButton.setEnabled(false);
             productList.addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
@@ -254,11 +265,25 @@ public class MainMenu extends JFrame {
             choosedBook = booksWarehouse.findBook(selectedProduct);
             if (choosedGenre==null){
                 choosedGenre = booksWarehouse.findBookGenre(booksWarehouse.findBook(selectedProduct));
+                /*int index = -1;
+                for(int i=0; i<booksWarehouse.getNGenres(); i++){
+                    if(booksWarehouse.getGenres().get(i).getName().equals(choosedGenre.getName())){
+                        index = i;
+                        break;
+                    }
+                }
+                if(index!=-1) {
+                    groupList.setSelectedIndex(index);
+                    groupList.repaint();
+                }*/
             }
 
             deleteProductButton.setEnabled(true);
             editProductButton.setEnabled(true);
             viewDescriptionButton.setEnabled(true);
+            addStockButton.setEnabled(true);
+            removeStockButton.setEnabled(true);
+            changePrice.setEnabled(true);
 
             showBookInformation();
         }
@@ -462,6 +487,18 @@ public class MainMenu extends JFrame {
                     listModelBooks.addElement(product.getName());
                 }
                 productList.setModel(listModelBooks);
+                groupList.clearSelection();
+
+                addStockButton.setEnabled(false);
+                removeStockButton.setEnabled(false);
+                changePrice.setEnabled(false);
+                deleteProductButton.setEnabled(false);
+                editProductButton.setEnabled(false);
+                viewDescriptionButton.setEnabled(false);
+                editGroupButton.setEnabled(false);
+                deleteGroupButton.setEnabled(false);
+                addProductButton.setEnabled(false);
+
                 productList.addListSelectionListener(new ListSelectionListener() {
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
