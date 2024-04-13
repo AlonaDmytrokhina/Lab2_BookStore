@@ -4,6 +4,9 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,7 @@ public class MainMenu extends JFrame {
     private Genre choosedGenre;
     private Book choosedBook;
     DeleteGenre deleteGenre;
+    StringBuilder statistics;
 
 
     public MainMenu() {
@@ -145,6 +149,7 @@ public class MainMenu extends JFrame {
         addGenre();
         editGenre();
         deleteGenre();
+        booksWarehouse.genresToFile();
 
         addBook();
         editBook();
@@ -153,12 +158,15 @@ public class MainMenu extends JFrame {
 
         searchingBooks();
         viewStatist();
+        viewStatistics();
     }
+
     private void newPrice(){
         changePrice.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changePrice();
+                viewStatistics();
             }
         });
     }
@@ -287,6 +295,8 @@ public class MainMenu extends JFrame {
                         JOptionPane.showMessageDialog(MainMenu.this, "Будь ласка, введіть назву категорії та файлу", "Помилка", JOptionPane.ERROR_MESSAGE);
                     }
                 }
+                viewStatistics();
+                booksWarehouse.genresToFile();
             }
         });
     }
@@ -301,6 +311,8 @@ public class MainMenu extends JFrame {
                     booksWarehouse.findGenre(choosedGenre.getName()).toFile();
                     updateGenreList();
                 }
+                viewStatistics();
+                booksWarehouse.genresToFile();
             }
         });
     }
@@ -327,6 +339,7 @@ public class MainMenu extends JFrame {
                         deleteGenre = null;
                         clearButtons();
                     }
+                    viewStatistics();
                 }
             }
         });
@@ -338,6 +351,7 @@ public class MainMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AddBook addBook = new AddBook(booksWarehouse, booksWarehouse.findGenre(choosedGenre.getName()), productList);
                 addBook.setVisible(true);
+                viewStatistics();
             }
         });
     }
@@ -385,6 +399,7 @@ public class MainMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 editBookName();
+                viewStatistics();
             }
         });
 
@@ -403,6 +418,7 @@ public class MainMenu extends JFrame {
                         clearButtons();
                     }
                 }
+                viewStatistics();
             }
         });
     }
@@ -507,6 +523,7 @@ public class MainMenu extends JFrame {
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(MainMenu.this, "Введіть ціле число", "Помилка", JOptionPane.ERROR_MESSAGE);
                 }
+                viewStatistics();
             }
         });
     }
@@ -538,6 +555,7 @@ public class MainMenu extends JFrame {
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(MainMenu.this, "Будь ласка, введіть ціле число", "Помилка", JOptionPane.ERROR_MESSAGE);
                 }
+                viewStatistics();
             }
         });
     }
@@ -546,13 +564,14 @@ public class MainMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewStatistics();
+                statisticsWindow();
             }
         });
 
     }
 
     private void viewStatistics() {
-        StringBuilder statistics = new StringBuilder();
+        statistics = new StringBuilder();
 
         // товари з інформацією по складу
         statistics.append("Всі товари на складі:\n");
@@ -581,13 +600,33 @@ public class MainMenu extends JFrame {
             }
             statistics.append("Категорія: ").append(genre.getName()).append(", Вартість: ").append(genreValue).append("\n");
         }
+        statisticsToFile();
+    }
 
+    private void statisticsWindow(){
         // Відображення вікна зі статистикою
         JTextArea statisticsArea = new JTextArea(statistics.toString());
         statisticsArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(statisticsArea);
         scrollPane.setPreferredSize(new Dimension(600, 400));
         JOptionPane.showMessageDialog(MainMenu.this, scrollPane, "Статистика", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void statisticsToFile(){
+        File statisticsFile = new File("Statistics.txt");
+        if (!statisticsFile.exists()) {
+            try {
+                statisticsFile.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(statisticsFile))) {
+            bw.write(String.valueOf(statistics));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

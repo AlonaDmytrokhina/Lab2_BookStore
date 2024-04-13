@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -71,6 +72,30 @@ public class BooksWarehouse {
             }
         }
         return books;
+    }
+
+    public void genresToFile(){
+        String res = "";
+
+        res += "\tПерелік категорій";
+        for(int i=0; i<genres.size(); i++){
+            res += "\n"+(i+1)+". "+genres.get(i).getName();
+        }
+
+        File genresFile = new File("Categories.txt");
+        if (!genresFile.exists()) {
+            try {
+                genresFile.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(genresFile))) {
+            bw.write(res);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -38,6 +38,7 @@ public class DeleteGenre extends JDialog {
                     JOptionPane.showMessageDialog(parent, "Файл не існує.");
                 }
                 booksWarehouse.deleteGenre(genre);
+                booksWarehouse.genresToFile();
                 DefaultListModel<String> model = (DefaultListModel<String>) groupList.getModel();
                 int selectedIndex = groupList.getSelectedIndex();
                 if (selectedIndex != -1) {
