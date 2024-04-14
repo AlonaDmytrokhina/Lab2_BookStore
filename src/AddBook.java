@@ -82,20 +82,36 @@ public class AddBook extends JFrame {
     }
 
     private void saveAll(Genre genre, JList<String> productList){
-        String name = productNameField.getText();
-        String author = productAuthorField.getText();
-        String info = descriptionArea.getText();
-        String producer = productManufacturerField.getText();
-        int amount = Integer.parseInt(productQuantityField.getText());
-        double cost = Double.parseDouble(productCostField.getText());
-        Book book = new Book(name, author, info, producer,amount,cost);
-        genre.addBook(book);
-        genre.toFile();
+        try {
+            String name = productNameField.getText();
+            String author = productAuthorField.getText();
+            String info = descriptionArea.getText();
+            String producer = productManufacturerField.getText();
+            int amount = Integer.parseInt(productQuantityField.getText());
+            double cost = Double.parseDouble(productCostField.getText());
 
-        DefaultListModel<String> model = (DefaultListModel<String>) productList.getModel();
-        model.addElement(book.getName());
+            // Перевірка на коректність введених даних
+            if (name.isEmpty() || author.isEmpty() || info.isEmpty() || producer.isEmpty()) {
+                throw new IllegalArgumentException("Будь ласка, заповніть всі поля.");
+            }
+            if (amount <= 0 || cost <= 0) {
+                throw new IllegalArgumentException("Кількість та ціна повинні бути більшими за нуль.");
+            }
 
-        this.dispose();
+            Book book = new Book(name, author, info, producer, amount, cost);
+            genre.addBook(book);
+            genre.toFile();
+
+            DefaultListModel<String> model = (DefaultListModel<String>) productList.getModel();
+            model.addElement(book.getName());
+
+            this.dispose();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Будь ласка, введіть коректні числові значення.", "Помилка", JOptionPane.ERROR_MESSAGE);
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Помилка", JOptionPane.ERROR_MESSAGE);
+        }
     }
+
 
 }
