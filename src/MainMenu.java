@@ -89,11 +89,14 @@ public class  MainMenu extends JFrame {
         productPriceField = new JTextField(10);
         searchField = new JTextField(10);
         addStockButton = new JButton("Додати товар на склад");
+        addStockButton.setEnabled(false);
         increaseProduct();
         removeStockButton = new JButton("Cписати товар зі складу");
+        removeStockButton.setEnabled(false);
         reducingProduct();
         viewStatisticsButton = new JButton("Переглянути статистику");
         changePrice = new JButton("Змінити ціну");
+        changePrice.setEnabled(false);
         searchBook = new JButton("Шукати книгу");
 
         controlPanel.add(new JLabel("Назва товару:"));
@@ -223,6 +226,7 @@ public class  MainMenu extends JFrame {
             // Отримати список товарів для вибраної категорії та відобразити його у списку товарів
             displayProductsForCategory();
             clearButtons();
+            muteBookButtons();
 
             addProductButton.setEnabled(true);
             productList.addListSelectionListener(new ListSelectionListener() {
@@ -256,10 +260,7 @@ public class  MainMenu extends JFrame {
                 choosedGenre = booksWarehouse.findBookGenre(booksWarehouse.findBook(selectedProduct));
             }
 
-            deleteProductButton.setEnabled(true);
-            editProductButton.setEnabled(true);
-            viewDescriptionButton.setEnabled(true);
-
+            activateBookButtons();
             showBookInformation();
         }
     }
@@ -465,7 +466,12 @@ public class  MainMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 choosedGenre = null;
+                groupList.clearSelection();
+                deleteGroupButton.setEnabled(false);
+                editGroupButton.setEnabled(false);
+                addProductButton.setEnabled(false);
                 choosedBook = null;
+                muteBookButtons();
                 listModelBooks.clear();
                 clearButtons();
                 List<Book> products = search(searchField.getText());
@@ -511,6 +517,26 @@ public class  MainMenu extends JFrame {
         productManufacturerField.setEditable(false);
         productQuantityField.setEditable(false);
         productPriceField.setEditable(false);
+    }
+
+    private void muteBookButtons(){
+        editProductButton.setEnabled(false);
+        deleteProductButton.setEnabled(false);
+        viewDescriptionButton.setEnabled(false);
+
+        addStockButton.setEnabled(false);
+        removeStockButton.setEnabled(false);
+        changePrice.setEnabled(false);
+    }
+
+    private void activateBookButtons(){
+        editProductButton.setEnabled(true);
+        deleteProductButton.setEnabled(true);
+        viewDescriptionButton.setEnabled(true);
+
+        addStockButton.setEnabled(true);
+        removeStockButton.setEnabled(true);
+        changePrice.setEnabled(true);
     }
 
     private void increaseProduct() {
