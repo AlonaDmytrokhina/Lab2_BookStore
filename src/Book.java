@@ -6,6 +6,15 @@ public class Book {
     private int amount;
     private double cost;
 
+    /**
+     *
+     * @param name
+     * @param author
+     * @param info
+     * @param producer
+     * @param amount
+     * @param cost
+     */
     Book(String name, String author, String info, String producer, int amount, double cost){
         this.name = name;
         this.author = author;
@@ -15,47 +24,23 @@ public class Book {
         this.cost = cost;
     }
 
-    public String getName() {
-        return name;
-    }
+//Методи для повернення значень полей
+    public String getName() {return name;}
+    public String getInfo() {return info;}
+    public String getProducer() {return producer;}
+    public int getAmount() {return amount;}
+    public double getCost() {return cost;}
+    public String getAuthor() {return author;}
 
-    public String getInfo() {
-        return info;
-    }
-
-    public String getProducer() {
-        return producer;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public double getCost() {
-        return cost;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
+//    Методи для зміни значень полей
+    public void setAuthor(String author) {this.author = author;}
     public void setName(String name) {this.name = name;}
-
     public void setInfo(String info) {this.info = info;}
-
     public void setProducer(String producer) {this.producer = producer;}
-
     public void setAmount(int amount) {this.amount = amount;}
-
     public void setCost(double cost) {this.cost = cost;}
 
-
-    public double getOverallCost(){return this.amount*this.cost;}
-
+// Метод для виведення
     public String toString(){
         String res = "";
         res+="\nНазва: "+this.name;

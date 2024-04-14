@@ -10,6 +10,13 @@ public class AddBook extends JFrame {
     private JButton descriptionButton, confirmDescription, saveButton;
     JFrame descriptionFrame;
     JTextArea descriptionArea;
+
+    /**
+     *
+     * @param booksWarehouse
+     * @param genre
+     * @param productList
+     */
     public AddBook(BooksWarehouse booksWarehouse, Genre genre, JList<String> productList){
         this.setTitle("Додати товар");
         this.setSize(700, 300);
@@ -54,6 +61,7 @@ public class AddBook extends JFrame {
         this.add(panel);
     }
 
+//    Метод для відкриття вікна для введення опису
     private void openDescriptionWindow() {
         descriptionFrame = new JFrame("Опис книги");
         descriptionFrame.setSize(400, 300);
@@ -81,6 +89,12 @@ public class AddBook extends JFrame {
         descriptionFrame.setVisible(true); // Робимо вікно опису видимим
     }
 
+    /**
+     *
+     * @param genre
+     * @param productList
+     */
+//    Метод для збереження всіх даних
     private void saveAll(Genre genre, JList<String> productList){
         try {
             String name = productNameField.getText();

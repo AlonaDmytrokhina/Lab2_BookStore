@@ -429,10 +429,11 @@ public class  MainMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Отримати опис книги та вивести його у повідомленні
                 if (booksWarehouse.findBook(choosedBook.getName()) != null) {
-                    String description = "\tКатегорія: "+booksWarehouse.findBookGenre(choosedBook).getName()+"\n"+choosedBook.getInfo();
+                    String description = "\tКатегорія: "+booksWarehouse.findBookGenre(choosedBook).getName()+"\n";
+                    description += choosedBook.getInfo();
 
                     JTextArea textArea = new JTextArea(description);
-                    textArea.setEditable(false);
+                    textArea.setEditable(true); // Тепер текстове поле буде редаговане
                     textArea.setLineWrap(true);
                     textArea.setWrapStyleWord(true); // Перенос слова, а не символа
 
@@ -440,8 +441,18 @@ public class  MainMenu extends JFrame {
                     JScrollPane scrollPane = new JScrollPane(textArea);
                     scrollPane.setPreferredSize(new Dimension(400, 200)); // Задаємо розмір вікна
 
-                    // Відображаємо діалогове вікно зі JScrollPane
-                    JOptionPane.showMessageDialog(MainMenu.this, scrollPane, "Опис книги", JOptionPane.INFORMATION_MESSAGE);
+                    // Відображаємо діалогове вікно зі JScrollPane та кнопкою "Зберегти"
+                    int option = JOptionPane.showConfirmDialog(MainMenu.this, scrollPane, "Редагувати опис книги", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+                    if (option == JOptionPane.OK_OPTION) {
+                        // Якщо користувач натиснув "OK", зберегти зміни
+                        String editedDescription = textArea.getText().replaceFirst("\tКатегорія: "+booksWarehouse.findBookGenre(choosedBook).getName()+"\n", "");
+                        // Оновлюємо опис книги
+                        booksWarehouse.findBook(choosedBook.getName()).setInfo(editedDescription);
+                        booksWarehouse.findBookGenre(choosedBook).toFile();
+                        // Повідомляємо користувача про успішне збереження
+                        JOptionPane.showMessageDialog(MainMenu.this, "Опис книги збережено успішно.", "Збережено", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
             }
         });
