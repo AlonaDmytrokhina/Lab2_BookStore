@@ -9,9 +9,9 @@ public class EnglishModern implements Genres{
         String name1 = "Us against you";
         String author1 = "Fredrikv Backman";
         String info1 = "Tucked in a forest in the frozen north, Beartown is full of tough and hardworking residents. " +
-                "\n\tThey don't expect life to be easy, but they do expect it to be fair. " +
-                "\n\tWhich is why the sudden loss of their hockey players to the rival town of Hed hurts. " +
-                "\n\tEveryone needs something to cheer for in the long winter nights.";
+                "They don't expect life to be easy, but they do expect it to be fair. " +
+                "Which is why the sudden loss of their hockey players to the rival town of Hed hurts. " +
+                "Everyone needs something to cheer for in the long winter nights.";
         String producer1 = "Penguin";
         int amount1 = 1;
         double cost1 = 625;
@@ -19,9 +19,9 @@ public class EnglishModern implements Genres{
         String name2 = "Me before you";
         String author2 = "Jojo Moyes";
         String info2 = "When Lou Clark loses her job at a café, she is given a job caring for Will Traynor. " +
-                "\n\tWill was disabled in a motorbike accident. Lou knows she needs the money. " +
-                "\n\tWill knows that his accident took away his love of life. Neither of them know that they're going to change each other's lives forever." +
-                "\n\tgoing to change each other's lives forever." ;
+                "Will was disabled in a motorbike accident. Lou knows she needs the money. " +
+                "Will knows that his accident took away his love of life. Neither of them know that they're going to change each other's lives forever." +
+                "going to change each other's lives forever." ;
         String producer2 = "Penguin";
         int amount2 = 2;
         double cost2 = 454;
@@ -30,7 +30,7 @@ public class EnglishModern implements Genres{
         String name3 = "The secret history";
         String author3 = "Donna Tartt ";
         String info3 = "«Under the influence of their charismatic classics professor, a group of clever, eccentric misfits at an elite New England " +
-                "\n\tcollege discover a way of thinking and living that is a world away from the humdrum existence of their contemporaries. ";
+                "college discover a way of thinking and living that is a world away from the humdrum existence of their contemporaries. ";
         String producer3 = "Penguin";
         int amount3 = 1;
         double cost3 = 570;
@@ -39,8 +39,8 @@ public class EnglishModern implements Genres{
         String name4 = "The Tuesday Club Murders";
         String author4 = "Agatha Christie";
         String info4 = "In a peaceful retirement village, four unlikely friends meet up once a week to investigate unsolved murders." +
-                "\n\tBut when a brutal killing takes place on their very doorstep, " +
-                "\n\tthe Thursday Murder Club find themselves in the middle of their first live case.";
+                "But when a brutal killing takes place on their very doorstep, " +
+                "the Thursday Murder Club find themselves in the middle of their first live case.";
         String producer4 = "Penguin";
         int amount4 = 3;
         double cost4 = 487;
@@ -49,7 +49,7 @@ public class EnglishModern implements Genres{
         String name5 = "Pride and Prejudice";
         String author5 = "Jane Austen";
         String info5 = "Designed to appeal to the booklover, the Macmillan Collector's Library is a series of beautiful gift editions" +
-                "\n\tof much loved classic titles. Macmillan Collector's Library are books to love and treasure." ;
+                "of much loved classic titles. Macmillan Collector's Library are books to love and treasure." ;
         String producer5 = "Pan Macmillan";
         int amount5 = 1;
         double cost5 = 549;
@@ -59,8 +59,8 @@ public class EnglishModern implements Genres{
         String name6 = "The little prince";
         String author6 = "Antoine De Saint-Exupery";
         String info6 = " When I fly among the stars and see the lights in the distance, I say to myself that this is my little Consuelo is calling me…” " +
-                "\n\tAntoine de Saint-Exupery wrote about love for his wife. A graceful Consuelo Suncin inspired an outstanding " +
-                "\n\t French writer, poet and pilot to create a beautiful rose in his famous all over the world book The Little Prince. ";
+                "Antoine de Saint-Exupery wrote about love for his wife. A graceful Consuelo Suncin inspired an outstanding " +
+                "French writer, poet and pilot to create a beautiful rose in his famous all over the world book The Little Prince. ";
         String producer6 = "Pan Macmillan";
         int amount6 = 2;
         double cost6 = 625;

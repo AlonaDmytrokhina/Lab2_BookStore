@@ -96,10 +96,6 @@ public class  MainMenu extends JFrame {
         changePrice = new JButton("Змінити ціну");
         searchBook = new JButton("Шукати книгу");
 
-        addStockButton.setEnabled(false);
-        removeStockButton.setEnabled(false);
-        changePrice.setEnabled(false);
-
         controlPanel.add(new JLabel("Назва товару:"));
         controlPanel.add(productNameField);
         controlPanel.add(new JLabel("Автор:"));
@@ -229,13 +225,6 @@ public class  MainMenu extends JFrame {
             clearButtons();
 
             addProductButton.setEnabled(true);
-
-            addStockButton.setEnabled(false);
-            removeStockButton.setEnabled(false);
-            changePrice.setEnabled(false);
-            deleteProductButton.setEnabled(false);
-            editProductButton.setEnabled(false);
-            viewDescriptionButton.setEnabled(false);
             productList.addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
@@ -265,25 +254,11 @@ public class  MainMenu extends JFrame {
             choosedBook = booksWarehouse.findBook(selectedProduct);
             if (choosedGenre==null){
                 choosedGenre = booksWarehouse.findBookGenre(booksWarehouse.findBook(selectedProduct));
-                /*int index = -1;
-                for(int i=0; i<booksWarehouse.getNGenres(); i++){
-                    if(booksWarehouse.getGenres().get(i).getName().equals(choosedGenre.getName())){
-                        index = i;
-                        break;
-                    }
-                }
-                if(index!=-1) {
-                    groupList.setSelectedIndex(index);
-                    groupList.repaint();
-                }*/
             }
 
             deleteProductButton.setEnabled(true);
             editProductButton.setEnabled(true);
             viewDescriptionButton.setEnabled(true);
-            addStockButton.setEnabled(true);
-            removeStockButton.setEnabled(true);
-            changePrice.setEnabled(true);
 
             showBookInformation();
         }
@@ -454,7 +429,18 @@ public class  MainMenu extends JFrame {
                 // Отримати опис книги та вивести його у повідомленні
                 if (booksWarehouse.findBook(choosedBook.getName()) != null) {
                     String description = "\tКатегорія: "+booksWarehouse.findBookGenre(choosedBook).getName()+"\n"+choosedBook.getInfo();
-                    JOptionPane.showMessageDialog(MainMenu.this, description, "Опис книги", JOptionPane.INFORMATION_MESSAGE);
+
+                    JTextArea textArea = new JTextArea(description);
+                    textArea.setEditable(false);
+                    textArea.setLineWrap(true);
+                    textArea.setWrapStyleWord(true); // Перенос слова, а не символа
+
+                    // Створюємо JScrollPane для текстового поля, якщо текст занадто довгий
+                    JScrollPane scrollPane = new JScrollPane(textArea);
+                    scrollPane.setPreferredSize(new Dimension(400, 200)); // Задаємо розмір вікна
+
+                    // Відображаємо діалогове вікно зі JScrollPane
+                    JOptionPane.showMessageDialog(MainMenu.this, scrollPane, "Опис книги", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -487,18 +473,6 @@ public class  MainMenu extends JFrame {
                     listModelBooks.addElement(product.getName());
                 }
                 productList.setModel(listModelBooks);
-                groupList.clearSelection();
-
-                addStockButton.setEnabled(false);
-                removeStockButton.setEnabled(false);
-                changePrice.setEnabled(false);
-                deleteProductButton.setEnabled(false);
-                editProductButton.setEnabled(false);
-                viewDescriptionButton.setEnabled(false);
-                editGroupButton.setEnabled(false);
-                deleteGroupButton.setEnabled(false);
-                addProductButton.setEnabled(false);
-
                 productList.addListSelectionListener(new ListSelectionListener() {
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
