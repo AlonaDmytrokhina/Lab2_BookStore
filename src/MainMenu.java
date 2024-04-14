@@ -453,7 +453,7 @@ public class  MainMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Отримати опис книги та вивести його у повідомленні
                 if (booksWarehouse.findBook(choosedBook.getName()) != null) {
-                    String description = choosedBook.getInfo();
+                    String description = "\tКатегорія: "+booksWarehouse.findBookGenre(choosedBook).getName()+"\n"+choosedBook.getInfo();
                     JOptionPane.showMessageDialog(MainMenu.this, description, "Опис книги", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
