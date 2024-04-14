@@ -1,6 +1,11 @@
 import java.io.IOException;
 
 public class UkrainianModern implements Genres{
+    /**
+     *
+     * @param booksWarehouse
+     * @throws IOException
+     */
     @Override
     public void defaultBooks(BooksWarehouse booksWarehouse) throws IOException {
         String path = "UkrainianModern.txt";

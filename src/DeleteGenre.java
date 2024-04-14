@@ -8,7 +8,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class DeleteGenre extends JDialog {
-
+    /**
+     *
+     * @param parent
+     * @param booksWarehouse
+     * @param genre
+     * @param groupList
+     * @param productList
+     */
     public DeleteGenre(JFrame parent, BooksWarehouse booksWarehouse, Genre genre, JList<String> groupList, JList<String> productList) {
         super(parent, "Підтверджуєте видалення?", true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -17,6 +24,7 @@ public class DeleteGenre extends JDialog {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+//Кнопка "Так", що реалізує видалення категорії
         JButton yesButton = new JButton("Так");
         yesButton.addActionListener(new ActionListener() {
             @Override
@@ -51,7 +59,7 @@ public class DeleteGenre extends JDialog {
                 dispose();
             }
         });
-
+//        Кнопка "Ні" закриває вікно
         JButton noButton = new JButton("Ні");
         noButton.addActionListener(new ActionListener() {
             @Override

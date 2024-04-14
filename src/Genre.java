@@ -12,6 +12,13 @@ public class Genre {
     File file;
     private String path;
 
+    /**
+     *
+     * @param name
+     * @param info
+     * @param path
+     * @throws IOException
+     */
     Genre(String name, String info, String path) throws IOException {
         this.name = name;
         this.info = info;
@@ -23,21 +30,16 @@ public class Genre {
         this.path = path;
     }
 
+//Методи для повернення значень полей
     public String getName() {return name;}
-
     public String getInfo() {return info;}
-
     public int getNBooks() {return this.books.size();}
-
     public ArrayList<Book> getBooks() {return books;}
-
-    public void setName(String name) {this.name = name;}
-
-    public void setInfo(String info) {this.info = info;}
-
-    public File getFile() {return file;}
-
     public String getPath() {return path;}
+
+//    Методи для зміни значень полей
+    public void setName(String name) {this.name = name;}
+    public void setInfo(String info) {this.info = info;}
 
     public void toFile(){
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.file))) {
@@ -47,6 +49,7 @@ public class Genre {
         }
     }
 
+//    Знаходження книги за назвою
     public Book findBook(String name){
         for(int i=0; i<this.books.size(); i++){
             if(this.books.get(i).getName().equals(name)){
@@ -56,19 +59,17 @@ public class Genre {
         return null;
     }
 
-    public void addBookData(String name, String author, String info, String producer, int amount, double cost){
-        Book book = new Book(name, author, info, producer, amount, cost);
-        this.books.add(book);
-    }
-
+//    Додавання книги
     public void addBook(Book book){
         this.books.add(book);
     }
 
+//    Видалення книги
     public void deleteBook(Book book){
         this.books.remove(book);
     }
 
+//    Метод для виведення
     public String toString(){
         String res = "";
         res += "\t"+this.name;

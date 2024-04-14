@@ -8,6 +8,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class DeleteBook extends JDialog {
+    /**
+     *
+     * @param parent
+     * @param genre
+     * @param book
+     * @param productList
+     */
     public DeleteBook(JFrame parent, Genre genre, Book book, JList<String> productList) {
         super(parent, "Підтверджуєте видалення?", true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -16,6 +23,7 @@ public class DeleteBook extends JDialog {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+//Кнопка "Так", що реалізує видалення книги
         JButton yesButton = new JButton("Так");
         yesButton.addActionListener(new ActionListener() {
             @Override
@@ -34,6 +42,8 @@ public class DeleteBook extends JDialog {
         });
 
         JButton noButton = new JButton("Ні");
+
+//        Кнопка "Ні" закриває вікно
         noButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

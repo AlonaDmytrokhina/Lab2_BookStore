@@ -30,7 +30,6 @@ public class  MainMenu extends JFrame {
     DeleteGenre deleteGenre;
     StringBuilder statistics;
 
-
     public MainMenu() {
         setTitle("Система управління складом");
         this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
@@ -164,6 +163,7 @@ public class  MainMenu extends JFrame {
         viewStatistics();
     }
 
+//    Метод для ActionListener кнопки для зміни ціни товару
     private void newPrice(){
         changePrice.addActionListener(new ActionListener() {
             @Override
@@ -173,6 +173,8 @@ public class  MainMenu extends JFrame {
             }
         });
     }
+
+//   Метод для зміни ціни товару
     private void changePrice() {
         String newPriceStr = JOptionPane.showInputDialog(MainMenu.this, "Введіть нову ціну:");
         try {
@@ -193,7 +195,7 @@ public class  MainMenu extends JFrame {
         }
     }
 
-
+// Метод для налаштування початкових категорій
     private void defaultGenres() throws IOException {
         Detective det = new Detective();
         det.defaultBooks(booksWarehouse);
@@ -211,6 +213,7 @@ public class  MainMenu extends JFrame {
         engM.defaultBooks(booksWarehouse);
     }
 
+//    Метод для додавання категорій на панель
     private void addButtonGenres() {
         for (int i = 0; i < booksWarehouse.getNGenres(); i++) {
             listModelCategories.addElement(booksWarehouse.getGenres().get(i).getName());
@@ -252,6 +255,7 @@ public class  MainMenu extends JFrame {
         productList.setModel(listModelBooks);
     }
 
+//    Метод для обробки події натискання на елемент товарів
     private void handleProductSelection() {
         String selectedProduct = productList.getSelectedValue();
         if (selectedProduct != null) {
@@ -265,6 +269,7 @@ public class  MainMenu extends JFrame {
         }
     }
 
+//    Метод для додавання категорії
     private void addGenre(){
         addGroupButton.addActionListener(new ActionListener() {
             @Override
@@ -302,6 +307,7 @@ public class  MainMenu extends JFrame {
         });
     }
 
+//    Метод для редагування категорії
     private void editGenre(){
         editGroupButton.addActionListener(new ActionListener() {
             @Override
@@ -318,6 +324,7 @@ public class  MainMenu extends JFrame {
         });
     }
 
+//    Метод для оновлення панелі категорій
     private void updateGenreList() {
         listModelCategories.clear();
         for (Genre genre : booksWarehouse.getGenres()) {
@@ -325,6 +332,7 @@ public class  MainMenu extends JFrame {
         }
     }
 
+//    Метод для видалення категорії
     private void deleteGenre(){
         deleteGroupButton.addActionListener(new ActionListener() {
             @Override
@@ -346,6 +354,7 @@ public class  MainMenu extends JFrame {
         });
     }
 
+// Метод для додання книг
     private void addBook(){
         addProductButton.addActionListener(new ActionListener() {
             @Override
@@ -357,6 +366,7 @@ public class  MainMenu extends JFrame {
         });
     }
 
+// Метод для редагування книг
     private void editBookName() {
         JTextField nameField = new JTextField(choosedBook.getName());
         JTextField authorField = new JTextField(choosedBook.getAuthor());
@@ -395,6 +405,7 @@ public class  MainMenu extends JFrame {
         }
     }
 
+// Метод для активації Listener для редагування книг
     private void editBook(){
         editProductButton.addActionListener(new ActionListener() {
             @Override
@@ -406,6 +417,7 @@ public class  MainMenu extends JFrame {
 
     }
 
+// Метод для видалення книг
     private void deleteBook(){
         deleteProductButton.addActionListener(new ActionListener() {
             @Override
@@ -423,6 +435,8 @@ public class  MainMenu extends JFrame {
             }
         });
     }
+
+// Метод для виведення і редагування опису
     private void viewDescription(){
         viewDescriptionButton.addActionListener(new ActionListener() {
             @Override
@@ -458,6 +472,7 @@ public class  MainMenu extends JFrame {
         });
     }
 
+// Метод для активації текстових полів панелі керування
     private void showBookInformation(){
         productNameField.setText(choosedBook.getName());
         productAuthorField.setText(choosedBook.getAuthor());
@@ -472,6 +487,7 @@ public class  MainMenu extends JFrame {
         productPriceField.setEditable(false);
     }
 
+// Метод для пошуку книг
     private void searchingBooks(){
         searchBook.addActionListener(new ActionListener() {
             @Override
@@ -502,6 +518,7 @@ public class  MainMenu extends JFrame {
         });
     }
 
+// Механізм пошуку
     private List<Book> search(String input){
         if (!input.equals("")) {
             List<Book> books = new ArrayList<>();
@@ -516,6 +533,7 @@ public class  MainMenu extends JFrame {
         return null;
     }
 
+// Метод для очищення текстових полів палелі керування
     private void clearButtons(){
         productNameField.setText("");
         productAuthorField.setText("");
@@ -530,6 +548,7 @@ public class  MainMenu extends JFrame {
         productPriceField.setEditable(false);
     }
 
+// Метод для деактивації кнопок для роботи з книгами
     private void muteBookButtons(){
         editProductButton.setEnabled(false);
         deleteProductButton.setEnabled(false);
@@ -540,6 +559,7 @@ public class  MainMenu extends JFrame {
         changePrice.setEnabled(false);
     }
 
+// Метод для активації кнопок для роботи з книгами
     private void activateBookButtons(){
         editProductButton.setEnabled(true);
         deleteProductButton.setEnabled(true);
@@ -550,6 +570,7 @@ public class  MainMenu extends JFrame {
         changePrice.setEnabled(true);
     }
 
+// Метод для збільшення кількості товарів
     private void increaseProduct() {
         addStockButton.addActionListener(new ActionListener() {
             @Override
@@ -575,6 +596,8 @@ public class  MainMenu extends JFrame {
             }
         });
     }
+
+// Метод для зменшення кількості товарів
     private void reducingProduct() {
         removeStockButton.addActionListener(new ActionListener() {
             @Override
@@ -607,6 +630,8 @@ public class  MainMenu extends JFrame {
             }
         });
     }
+
+// Метод для активації Listener для виведення статистики
     private void viewStatist(){
         viewStatisticsButton.addActionListener(new ActionListener() {
             @Override
@@ -618,6 +643,7 @@ public class  MainMenu extends JFrame {
 
     }
 
+// Метод для виведення статистики
     private void viewStatistics() {
         statistics = new StringBuilder();
 
@@ -651,6 +677,7 @@ public class  MainMenu extends JFrame {
         statisticsToFile();
     }
 
+// Метод для виведення статистики в окреме вікно
     private void statisticsWindow(){
         // Відображення вікна зі статистикою
         JTextArea statisticsArea = new JTextArea(statistics.toString());
@@ -660,6 +687,7 @@ public class  MainMenu extends JFrame {
         JOptionPane.showMessageDialog(MainMenu.this, scrollPane, "Статистика", JOptionPane.INFORMATION_MESSAGE);
     }
 
+// Метод для запиус статистики у файл
     private void statisticsToFile(){
         File statisticsFile = new File("Statistics.txt");
         if (!statisticsFile.exists()) {
@@ -675,12 +703,5 @@ public class  MainMenu extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            MainMenu wms = new MainMenu();
-            wms.setVisible(true);
-        });
     }
 }

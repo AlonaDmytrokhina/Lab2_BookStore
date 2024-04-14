@@ -49,6 +49,7 @@ public class Users extends JFrame {
         add(loginButton);
     }
 
+//    Метод для перевірки логіна й паролю
     private void checkLogin() { // перевірка паролю та логіна
         String login = loginField.getText();
         String password = new String(passwordField.getPassword());
@@ -63,6 +64,7 @@ public class Users extends JFrame {
         }
     }
 
+//    Метод для відкриття головного вікна
     private void openMainWindow() { // відкрити головне вікно
         // Ваш код для відкриття головного вікна
         MainMenu mainFrame = new MainMenu();
